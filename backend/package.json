@@ -1,0 +1,19 @@
+{
+  "name": "weblab-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ceredavide/WEBLAB-PROJEKT.git"
+  },
+  "author": "Davide Ceresa",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/Ceredavide/WEBLAB-PROJEKT/issues"
+  },
+  "homepage": "https://github.com/Ceredavide/WEBLAB-PROJEKT#readme"
+}
