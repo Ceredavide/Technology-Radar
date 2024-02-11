@@ -3,6 +3,9 @@ const supertest = require('supertest');
 const Server = require("../../classes/Server")
 const Technology = require('../../models/Technology');
 
+const RINGS = require("../../constants/RINGS")
+const CATEGORIES = require("../../constants/CATEGORIES")
+
 jest.mock('../../models/Technology');
 
 let httpServer;
@@ -15,6 +18,28 @@ afterAll(async () => {
   if (httpServer && httpServer.close) {
     await new Promise(done => httpServer.close(done));
   }
+});
+
+describe('GET /categories', () => {
+  it('should retrieve all the category options', async () => {
+    const res = await supertest(httpServer)
+      .get('/api/options/categories')
+      .expect('Content-Type', /json/)
+      .expect(200);
+
+    expect(res.body).toEqual(CATEGORIES);
+  });
+});
+
+describe('GET /rings', () => {
+  it('should retrieve all the ring options', async () => {
+    const res = await supertest(httpServer)
+      .get('/api/options/rings')
+      .expect('Content-Type', /json/)
+      .expect(200);
+
+    expect(res.body).toEqual(RINGS);
+  });
 });
 
 describe('POST /technology - Create Technology', () => {
