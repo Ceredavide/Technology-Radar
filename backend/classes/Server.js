@@ -1,5 +1,6 @@
 const express = require("express")
 const helmet = require("helmet");
+const cors = require('cors');
 const bodyParser = require("body-parser")
 const morgan = require("morgan");
 
@@ -19,6 +20,8 @@ class Server {
         if (process.env.NODE_ENV !== 'test') {
             this.server.use(morgan('[:date[iso]] method::method url::url status::status res.time::response-time ms'));
         }
+
+        this.server.use(cors({origin: 'http://localhost:4200'}));
 
         this.server.use(bodyParser.json({ limit: '5mb' }));
 
