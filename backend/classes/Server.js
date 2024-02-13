@@ -6,6 +6,7 @@ const morgan = require("morgan");
 
 const HttpError = require("./HttpError");
 const errorHandler = require("../controllers/error");
+const setEnvVariables = require("../utils/setEnvVariables");
 
 class Server {
 
@@ -20,6 +21,8 @@ class Server {
         if (process.env.NODE_ENV !== 'test') {
             this.server.use(morgan('[:date[iso]] method::method url::url status::status res.time::response-time ms'));
         }
+
+        setEnvVariables()
 
         this.server.use(cors({origin: 'http://localhost:4200'}));
 
