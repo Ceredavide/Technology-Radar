@@ -8,6 +8,10 @@ const CATEGORIES = require("../../constants/CATEGORIES")
 
 jest.mock('../../models/Technology');
 
+jest.mock('../../middlewares/checkAuth', () => (req, res, next) => {
+  next();
+});
+
 let httpServer;
 
 beforeAll(async () => {
