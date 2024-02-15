@@ -20,7 +20,7 @@ export class AuthService {
   }
 
   login(loginForm: loginData): Observable<{ token: string }> {
-    return this.http.post<{ token: string }>(`${this.apiUrl}/auth/login`, { loginForm }).pipe(
+    return this.http.post<{ token: string }>(`${this.apiUrl}/auth/login`, loginForm ).pipe(
       tap(res => {
         sessionStorage.setItem('access_token', res.token);
       })
