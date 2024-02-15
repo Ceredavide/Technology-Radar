@@ -1,0 +1,89 @@
+<section class="bg-gray-50 dark:bg-gray-900">
+    <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+        <div
+            class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+            <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+                <p class="text-sm font-light text-black-500 dark:text-black-400">
+                    <a href="/login" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Go back
+                        to Login</a>
+                </p>
+                <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                    Sign Up
+                </h1>
+                <form [formGroup]="signUpForm" (ngSubmit)="trySignUp()" class="space-y-4 md:space-y-6">
+                    <div>
+                        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
+                            email:</label>
+                        <input formControlName="email" type="email" name="email" id="email"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="name@company.com">
+                        <div *ngIf="signUpForm.get('email')?.errors && signUpForm.get('email')?.touched">
+                            <p *ngIf="signUpForm.get('email')?.errors?.['required']"
+                                class="text-red-500 text-xs italic">
+                                The email is required.
+                            </p>
+                            <p *ngIf="signUpForm.get('email')?.errors?.['email']" class="text-red-500 text-xs italic">
+                                The email is not valid.
+                            </p>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="company"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Company:</label>
+                        <input formControlName="company" type="text" name="company" id="company"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="ex. Google">
+                        <div *ngIf="signUpForm.get('company')?.errors && signUpForm.get('company')?.touched">
+                            <p *ngIf="signUpForm.get('company')?.errors?.['required']"
+                                class="text-red-500 text-xs italic">
+                                The company is required.
+                            </p>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="password"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password:</label>
+                        <input formControlName="password" type="password" name="password" id="password"
+                            placeholder="••••••••"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <div *ngIf="signUpForm.get('password')?.errors && signUpForm.get('company')?.touched">
+                            <p *ngIf="signUpForm.get('password')?.errors?.['required']"
+                                class="text-red-500 text-xs italic">
+                                The password is required.
+                            </p>
+                            <p *ngIf="signUpForm.get('password')?.errors?.['minlength']"
+                                class="text-red-500 text-xs italic">
+                                The password must have at least 8 characters.
+                            </p>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="confirmPassword"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm
+                            Password:</label>
+                        <input formControlName="confirmPassword" type="password" name="confirmPassword"
+                            id="confirmPassword" placeholder="••••••••"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <div *ngIf="signUpForm.get('password')?.errors && signUpForm.get('company')?.touched">
+                            <p *ngIf="signUpForm.get('confirmPassword')?.errors?.['required']"
+                                class="text-red-500 text-xs italic">
+                                The password is required.
+                            </p>
+                        </div>
+                        <p *ngIf="signUpForm.errors?.['passwordMismatch']" class="text-red-500 text-xs italic">
+                            The two passwords doesn't match.
+                        </p>
+                    </div>
+                    <button type="submit"
+                        class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Confirm</button>
+                </form>
+                <div *ngIf="error">
+                    <app-alert alertType="error" message={{error.error}} />
+                </div>
+                <div *ngIf="response">
+                    <app-alert alertType="success" message="User created successfully!" />
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
