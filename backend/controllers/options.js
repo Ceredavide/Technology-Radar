@@ -5,9 +5,11 @@ const RINGS = require('../constants/RINGS')
 //GET
 //
 exports.getCategories = async (req, res, next) => {
-    res.status(200).json(CATEGORIES)
+    categories = Object.entries(CATEGORIES)
+    res.status(200).json(categories)
 }
 
 exports.getRings = async (req, res, next) => {
-    res.status(200).json(RINGS)
+    rings = Object.entries(RINGS)
+    res.status(200).json(rings)
 }
