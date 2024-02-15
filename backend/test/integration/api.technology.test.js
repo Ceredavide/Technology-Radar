@@ -31,7 +31,7 @@ describe('GET /categories', () => {
       .expect('Content-Type', /json/)
       .expect(200);
 
-    expect(res.body).toEqual(CATEGORIES);
+    expect(res.body).toEqual(Object.entries(CATEGORIES));
   });
 });
 
@@ -42,7 +42,7 @@ describe('GET /rings', () => {
       .expect('Content-Type', /json/)
       .expect(200);
 
-    expect(res.body).toEqual(RINGS);
+    expect(res.body).toEqual(Object.entries(RINGS));
   });
 });
 
