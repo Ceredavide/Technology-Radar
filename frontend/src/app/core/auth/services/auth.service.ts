@@ -22,16 +22,16 @@ export class AuthService {
   login(loginForm: loginData): Observable<{ token: string }> {
     return this.http.post<{ token: string }>(`${this.apiUrl}/auth/login`, loginForm ).pipe(
       tap(res => {
-        sessionStorage.setItem('access_token', res.token);
+        localStorage.setItem('access_token', res.token);
       })
     );
   }
 
   logout() {
-    sessionStorage.removeItem('access_token');
+    localStorage.removeItem('access_token');
   }
 
   public get loggedIn(): boolean {
-    return sessionStorage.getItem('access_token') !== null;
+    return localStorage.getItem('access_token') !== null;
   }
 }

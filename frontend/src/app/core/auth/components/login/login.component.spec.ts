@@ -63,7 +63,7 @@ describe('LoginComponent', () => {
     component.loginForm.controls['password'].setValue('123456');
     component.tryLogin();
     tick();
-    expect(navigateSpy).toHaveBeenCalledWith('/');
+    expect(navigateSpy).toHaveBeenCalledWith('home');
   }));
 
   it('should display error message on login failure', fakeAsync(() => {
