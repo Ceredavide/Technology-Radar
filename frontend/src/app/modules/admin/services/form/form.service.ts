@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
-import TechnologyData from '../../interfaces/TechnologyData';
+import Technology from '../../../../shared/interfaces/Technology';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +12,7 @@ export class FormService {
 
   constructor(private http: HttpClient) { }
 
-  sendForm(formData: TechnologyData) {
+  sendForm(formData: Technology) {
     return this.http.post(`${this.apiUrl}/technology`, formData);
   }
  
