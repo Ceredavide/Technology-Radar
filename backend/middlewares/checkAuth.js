@@ -19,7 +19,8 @@ module.exports = async (req, res, next) => {
         decodedToken = jwt.verify(token, process.env.JWT_SECRET)
 
     } catch (err) {
-        return next(new HttpError("Unauthorised", 401))
+        console.log(err)
+        return next(new HttpError("Unauthorized", 401))
     }
 
     try {
