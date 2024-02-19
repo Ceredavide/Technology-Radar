@@ -1,8 +1,7 @@
-import Ring from "./Ring";
-
 export default interface Technology {
     name: string,
+    description: string,
     ring: string,
-    category: Ring,
-    description: string
+    category: string,
+    descriptionCategorization: string
 }

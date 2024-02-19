@@ -51,7 +51,7 @@
             </div>
           </div>
         </div>
-        <div formGroupName="category" class="w-full md:w-1/2 px-3">
+        <div class="w-full md:w-1/2 px-3">
           <div class="mb-4">
             <label class="block text-md: font-bold mb-2" for="grid-state">
               Category:
@@ -59,7 +59,7 @@
             <div class="relative">
               <select
                 class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                formControlName="name">
+                formControlName="category">
                 <option value="">Choose a category</option>
                 <option *ngFor="let category of categories" [value]="category[0]">{{category[1]}}</option>
               </select>
@@ -69,19 +69,19 @@
                 </svg>
               </div>
             </div>
-            <div *ngIf="technologyForm.get('name')?.errors && technologyForm.get('name')?.touched">
-              <p *ngIf="technologyForm.get('name')?.errors?.['required']" class="text-red-500 text-xs italic">
+            <div *ngIf="technologyForm.get('category')?.errors && technologyForm.get('category')?.touched">
+              <p *ngIf="technologyForm.get('category')?.errors?.['required']" class="text-red-500 text-xs italic">
                 A category is required.
               </p>
             </div>
           </div>
           <div class="mb-4">
-            <label class="block text-md font-bold mb-2" for="description">
+            <label class="block text-md font-bold mb-2" for="descriptionCategorization">
               Description for category:
             </label>
             <textarea
               class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              formControlName="description" type="text" placeholder="">
+              formControlName="descriptionCategorization" type="text" placeholder="">
               </textarea>
           </div>
         </div>

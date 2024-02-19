@@ -11,7 +11,7 @@ exports.getPublished = async (req, res, next) => {
     let technologies
 
     try {
-        technologies = await Technology.find({ published: true })
+        technologies = await Technology.find({ published: true }, '-published -creator -createdAt -updatedAt -__v')
     } catch (err) {
         return next(new HttpError("Something went wrong, try again later.", 500))
     }
@@ -30,16 +30,18 @@ exports.create = async (req, res, next) => {
 
     const {
         name,
+        description,
         category,
         ring,
-        description
+        descriptionCategorization
     } = req.body
 
     const technology = new Technology({
         name,
+        description,
         category,
         ring,
-        description,
+        descriptionCategorization,
         creator: userId
     })
 

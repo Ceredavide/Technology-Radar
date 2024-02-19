@@ -16,6 +16,7 @@ import { ScreenComponent } from '../../../../shared/components/screen/screen.com
   ],
   templateUrl: './technology-radar.component.html'
 })
+
 export class TechnologyRadarComponent implements OnInit {
 
   technologyRadar : TechnologyRadar[] = [];
@@ -29,12 +30,12 @@ export class TechnologyRadarComponent implements OnInit {
   ngOnInit() {
     this.homeService.fetchPublishedTechnologies().subscribe(technologies => {
       this.technologyRadar = technologies;
-      this.categories = technologies.map(technology => technology.categoryName)
-      this.technologiesByRings = this.technologyRadar[0].values
+      this.categories = technologies.map(technology => technology.category)
+      this.technologiesByRings = this.technologyRadar[0].rings
     });
   }
 
   tabChange(index : number){
-    this.technologiesByRings = this.technologyRadar[index].values
+    this.technologiesByRings = this.technologyRadar[index].rings
   }
 }

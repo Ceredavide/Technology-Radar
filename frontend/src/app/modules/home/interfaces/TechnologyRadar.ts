@@ -1,11 +1,11 @@
 import Technology from "../../../shared/interfaces/Technology"
 
 export default interface TechnologyRadar {
-    categoryName: string,
-    values: Ring[]
+    category: string,
+    rings: Ring[]
 }
 
 export interface Ring {
-    ringName: string,
+    name: string,
     technologies: Technology[]
 }
