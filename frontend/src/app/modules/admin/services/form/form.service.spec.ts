@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { FormService } from './form.service';
-import TechnologyData from '../../interfaces/TechnologyData';
+import Technology from './../../../../shared/interfaces/Technology';
 
 describe('FormService', () => {
     let service: FormService;
@@ -18,7 +18,7 @@ describe('FormService', () => {
     });
 
     afterEach(() => {
-        httpMock.verify(); // Assicurati che non ci siano richieste pendenti
+        httpMock.verify();
     });
 
     it('should be created', () => {
@@ -26,7 +26,7 @@ describe('FormService', () => {
     });
 
     it('#sendForm should post data correctly', () => {
-        const dummyFormData: TechnologyData = {
+        const dummyFormData: Technology = {
             name: "test",
             category: {
                 name: "test",
