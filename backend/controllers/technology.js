@@ -1,11 +1,32 @@
 const HttpError = require("../classes/HttpError")
 const Technology = require("../models/Technology")
 const formatErrors = require("../utils/formatErrors")
+const formatTechnologies = require("../utils/formatTechnologies")
+
+//
+//GET
+//
+exports.getPublished = async (req, res, next) => {
+
+    let technologies
+
+    try {
+        technologies = await Technology.find({ published: true })
+    } catch (err) {
+        return next(new HttpError("Something went wrong, try again later.", 500))
+    }
+
+    const formattedTechnologies = formatTechnologies(technologies)
+
+    res.status(200).json(formattedTechnologies)
+}
 
 //
 //POST
 //
 exports.create = async (req, res, next) => {
+
+    const { _id: userId } = req.userData
 
     const {
         name,
@@ -18,7 +39,8 @@ exports.create = async (req, res, next) => {
         name,
         category,
         ring,
-        description
+        description,
+        creator: userId
     })
 
     let errors = technology.validateSync()
