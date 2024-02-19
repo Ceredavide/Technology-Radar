@@ -1,6 +1,6 @@
 module.exports = {
-    HOLD: "Hold",
-    ASSESS: "Assess",
+    ADOPT: "Adopt",
     TRIAL: "Trial",
-    ADOPT: "Adopt"
+    ASSESS: "Assess",
+    HOLD: "Hold"
 }
