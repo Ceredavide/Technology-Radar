@@ -8,12 +8,12 @@ describe('JwtInterceptor', () => {
 
   beforeEach(() => {
     request = new HttpRequest('GET', '/test');
-    sessionStorage.clear();
+    localStorage.clear();
   });
 
   it('should add an Authorization header if token exists', () => {
     const token = 'test-token';
-    sessionStorage.setItem('access_token', token);
+    localStorage.setItem('access_token', token);
 
     const spyNext = jasmine.createSpy('next').and.callFake(next);
 

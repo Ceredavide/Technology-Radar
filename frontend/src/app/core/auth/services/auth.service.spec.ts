@@ -41,7 +41,7 @@ describe('AuthService', () => {
 
     service.login(loginData).subscribe(res => {
       expect(res.token).toBe(mockToken);
-      expect(sessionStorage.getItem('access_token')).toBe(mockToken);
+      expect(localStorage.getItem('access_token')).toBe(mockToken);
     });
 
     const req = httpMock.expectOne(`${service.apiUrl}/auth/login`);
@@ -50,15 +50,15 @@ describe('AuthService', () => {
   });
 
   it('should remove the token on logout', () => {
-    sessionStorage.setItem('access_token', 'fake-token');
+    localStorage.setItem('access_token', 'fake-token');
     service.logout();
-    expect(sessionStorage.getItem('access_token')).toBeNull();
+    expect(localStorage.getItem('access_token')).toBeNull();
   });
 
   it('should return loggedIn status', () => {
-    sessionStorage.removeItem('access_token');
+    localStorage.removeItem('access_token');
     expect(service.loggedIn).toBeFalse();
-    sessionStorage.setItem('access_token', 'fake-token');
+    localStorage.setItem('access_token', 'fake-token');
     expect(service.loggedIn).toBeTrue();
   });
 

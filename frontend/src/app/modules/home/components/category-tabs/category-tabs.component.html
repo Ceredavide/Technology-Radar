@@ -1,0 +1,21 @@
+<div class="sm:hidden px-2">
+    <label for="tabs" class="sr-only">Select tab</label>
+    <select id="tabs"
+    class="bg-gray-700 border border-gray-600 text-white text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 placeholder-gray-400"
+        (change)="selectTabFromSelect($event)">
+        <option *ngFor="let category of categories; let idx = index" [value]="idx">{{category}}</option>
+    </select>
+
+</div>
+<ul class="hidden text-sm font-medium text-center rounded-lg sm:flex divide-gray-600 text-gray-400"
+    id="fullWidthTab" role="tablist">
+    <li *ngFor="let category of categories; let idx=index" class="w-full px-2">
+        <button id="{{category}}-tab" type="button" role="tab" (click)="selectTab(idx)"
+            class="inline-block w-full p-4 rounded-lg focus:outline-none" [ngClass]="{
+            'bg-blue-700 hover:bg-blue-700 text-white': selectedTab === idx,
+            'bg-gray-700 hover:bg-gray-600 text-gray-400': selectedTab !== idx
+        }">
+            {{category}}
+        </button>
+    </li>
+</ul>

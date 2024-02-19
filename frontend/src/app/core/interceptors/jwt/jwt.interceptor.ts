@@ -2,7 +2,7 @@ import { HttpRequest, HttpEvent, HttpInterceptorFn, HttpHandlerFn } from '@angul
 import { Observable } from 'rxjs';
 
 export const jwtInterceptor : HttpInterceptorFn = (request: HttpRequest<any>, next : HttpHandlerFn): Observable<HttpEvent<unknown>> => {
-    let token = sessionStorage.getItem('access_token');
+    let token = localStorage.getItem('access_token');
     if (token) {
       request = request.clone({
         setHeaders: {

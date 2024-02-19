@@ -27,8 +27,8 @@ describe('TechnologyFormComponent', () => {
   });
 
   it('should fetch categories and rings on init', () => {
-    const mockCategories = [{ id: 1, name: 'Frontend' }];
-    const mockRings = [{ id: 1, name: 'Stable' }];
+    const mockCategories: [string, string][] = [["Hello", 'Frontend']];
+    const mockRings: [string, string][] = [["Hello", 'Frontend']];
 
     spyOn(formService, 'fetchCategoriesOptions').and.returnValue(of(mockCategories));
     spyOn(formService, 'fetchRingOptions').and.returnValue(of(mockRings));
@@ -37,8 +37,8 @@ describe('TechnologyFormComponent', () => {
 
     expect(formService.fetchCategoriesOptions).toHaveBeenCalled();
     expect(formService.fetchRingOptions).toHaveBeenCalled();
-    expect(component.categories).toEqual(Object.entries(mockCategories));
-    expect(component.rings).toEqual(Object.entries(mockRings));
+    expect(component.categories).toEqual(mockCategories);
+    expect(component.rings).toEqual(mockRings);
   });
 
   it('should handle error when fetching categories fails', () => {
@@ -67,7 +67,7 @@ describe('TechnologyFormComponent', () => {
 
   it('should populate errors when form is invalid', () => {
     expect(component.technologyForm.valid).toBeFalsy();
-    
+
     component.sendForm();
 
     expect(component.technologyForm.touched).toBeTruthy();
@@ -87,6 +87,6 @@ describe('TechnologyFormComponent', () => {
     component.sendForm();
 
     expect(formService.sendForm).toHaveBeenCalledWith(mockFormValue);
-    expect(component.result).toEqual(mockResponse);
+    expect(component.formResult).toEqual(mockResponse);
   });
 });

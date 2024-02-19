@@ -33,6 +33,7 @@ const technologySchema = new Schema({
         type: String,
         required: [true, "Technology description is required."]
     },
+    creator: { type: Schema.Types.ObjectId, ref: 'User' },
     published: { type: Boolean, default: false },
 }, {
     timestamps: true,

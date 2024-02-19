@@ -1,0 +1,30 @@
+<div class="md:flex px-2">
+    <ul
+        class="flex-column space-y-4 text-sm font-medium text-gray-400 md:me-4 mb-4 md:mb-0 md:w-2/12">
+        <li *ngFor="let ring of technologiesByRings; let idx = index">
+            <a (click)="selectRing(idx)" class="inline-flex justify-between px-4 py-3 text-white rounded-lg w-full"
+                [ngClass]="{
+                  'bg-gray-200 text-white hover:bg-blue-300 dark:bg-blue-700 dark:hover:bg-blue-700': selectedRing == idx,
+                  'bg-gray-50 text-gray-400 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600': selectedRing !== idx
+            }">
+                <p>
+                    {{ ring.ringName }}
+                </p>
+                <p>
+                    ({{ring.technologies.length}})
+                </p>
+            </a>
+        </li>
+    </ul>
+    <div class="pb-6 text-gray-400 bg-gray-800 text-medium rounded-lg w-full h-full">
+        <h4 class="mb-2 text-3xl font-bold tracking-tight text-gray-900 text-white">
+            Technologies:
+        </h4>
+        <div *ngFor="let techonlogy of technologiesBySelectedRing">
+            <technology-card [technology]="techonlogy" />
+        </div>
+        <div *ngIf="technologiesBySelectedRing.length === 0">
+            <app-alert alertType="info" message="Currently there are no Technologies in those categories." />
+        </div>
+    </div>
+</div>
