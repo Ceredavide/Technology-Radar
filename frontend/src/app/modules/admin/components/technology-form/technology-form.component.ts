@@ -5,13 +5,15 @@ import { CommonModule } from '@angular/common';
 
 import { FormService } from '../../services/form/form.service'
 import { HttpErrorResponse } from '@angular/common/http';
+import { ScreenComponent } from '../../../../shared/components/screen/screen.component';
 
 @Component({
   selector: 'app-technology-form',
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    CommonModule
+    CommonModule,
+    ScreenComponent
   ],
   templateUrl: './technology-form.component.html'
 })
