@@ -1,41 +1,44 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+import Technology from '../../../../shared/interfaces/Technology';
+import TechnologyViewer from '../../../../shared/interfaces/TechnologyViewer';
 
 import { HomeService } from '../../services/home.service';
-import TechnologyRadar, { Ring } from '../../interfaces/TechnologyRadar';
-import { CategoryTabs } from '../category-tabs/category-tabs.component';
-import { RingTechnologies } from '../ring-technologies/ring-technologies.component';
+
 import { ScreenComponent } from '../../../../shared/components/screen/screen.component';
+import { AlertComponent } from '../../../../shared/components/alert/alert.component';
+import { TechnologyViewerComponent } from '../../../../shared/components/technology-viewer/technology-viewer.component';
+import { TechnologyCardComponent } from '../technology-card/technology-card.component';
 
 @Component({
   selector: 'app-technology-radar',
   standalone: true,
   imports: [
-    CategoryTabs,
+    TechnologyViewerComponent,
+    TechnologyCardComponent,
     ScreenComponent,
-    RingTechnologies
+    AlertComponent,
+    CommonModule
   ],
   templateUrl: './technology-radar.component.html'
 })
 
 export class TechnologyRadarComponent implements OnInit {
 
-  technologyRadar : TechnologyRadar[] = [];
+  technologyRadar : TechnologyViewer[] = [];
 
-  categories: string[] = []
-
-  technologiesByRings: Ring[] = []
+  selectedTechnologies: Technology[] = []
 
   constructor(private homeService: HomeService) { }
 
   ngOnInit() {
     this.homeService.fetchPublishedTechnologies().subscribe(technologies => {
       this.technologyRadar = technologies;
-      this.categories = technologies.map(technology => technology.category)
-      this.technologiesByRings = this.technologyRadar[0].rings
     });
   }
 
-  tabChange(index : number){
-    this.technologiesByRings = this.technologyRadar[index].rings
+  setTechnologies(technologies : Technology[]){
+    this.selectedTechnologies = technologies
   }
 }

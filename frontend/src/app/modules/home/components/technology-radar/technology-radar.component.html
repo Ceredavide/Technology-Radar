@@ -1,12 +1,14 @@
 <app-screen>
     <div class="container mx-auto">
         <div class="w-full bg-gray-800">
-            <div class="py-4 px-2">
-                <category-tabs [categories]="categories" (onTabChange)="tabChange($event)"></category-tabs>
-            </div>
-            <div class="py-4 px-2">
-                <ring-technologies [technologiesByRings]="technologiesByRings" />
-            </div>
+            <technology-viewer [technologyRadar]="technologyRadar" (setSelectedTechnologies)="setTechnologies($event)">
+                <div *ngFor="let techonlogy of selectedTechnologies">
+                    <technology-card [technology]="techonlogy" />
+                </div>
+                <div *ngIf="selectedTechnologies.length === 0">
+                    <app-alert alertType="info" message="Currently there are no Technologies in those categories." />
+                </div>
+            </technology-viewer>
         </div>
     </div>
 </app-screen>

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import TechnologyRadar from '../interfaces/TechnologyRadar';
+
+import TechnologyViewer from '../../../shared/interfaces/TechnologyViewer';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class HomeService {
 
   constructor(private http: HttpClient) { }
  
-  fetchPublishedTechnologies(): Observable<TechnologyRadar[]> {
-    return this.http.get<TechnologyRadar[]>(`${this.apiUrl}/technology`);
+  fetchPublishedTechnologies(): Observable<TechnologyViewer[]> {
+    return this.http.get<TechnologyViewer[]>(`${this.apiUrl}/technology`);
   }
 }

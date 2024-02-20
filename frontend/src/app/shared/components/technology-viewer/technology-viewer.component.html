@@ -1,0 +1,16 @@
+<div class="container mx-auto">
+    <div class="w-full bg-gray-800">
+        <div class="py-4 px-2">
+            <category-tabs [categories]="categories" (onTabChange)="categoryChange($event)"></category-tabs>
+        </div>
+        <div class="py-4 px-2">
+            <div class="md:me-4 mb-4 md:mb-0 ">
+                <ring-technologies [technologiesByRings]="selectedRings" (onRingChange)="ringChange($event)">
+                    <ng-content>
+
+                    </ng-content>
+                </ring-technologies>
+            </div>
+        </div>
+    </div>
+</div>
