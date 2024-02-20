@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../services/auth/auth.service';
 import { AlertComponent } from '../../../../shared/components/alert/alert.component';
 import signupData from '../../interfaces/signupData';
 import { HttpErrorResponse, HttpResponse, HttpStatusCode } from '@angular/common/http';

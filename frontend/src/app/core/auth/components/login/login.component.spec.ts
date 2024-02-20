@@ -5,7 +5,7 @@ import { of, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 
 import { LoginComponent } from './login.component';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../services/auth/auth.service';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;

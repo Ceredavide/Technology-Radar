@@ -1,6 +1,6 @@
 import { TestBed, fakeAsync, tick, ComponentFixture } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../services/auth/auth.service';
 import { SignupComponent } from './signup.component';
 import { of, throwError } from 'rxjs';
 
