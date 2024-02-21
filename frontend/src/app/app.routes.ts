@@ -8,9 +8,24 @@ import { AuthGuard } from './core/guards/auth/auth.guard';
 import { TechnologyRadarComponent } from './modules/home/components/technology-radar/technology-radar.component';
 
 export const routes: Routes = [
-    { path: 'login', component: LoginComponent },
-    { path: 'signup', component: SignupComponent },
-    { path: 'home', component: TechnologyRadarComponent, canActivate: mapToCanActivate([AuthGuard]) },
-    { path: 'form', component: TechnologyFormComponent, canActivate: mapToCanActivate([AuthGuard]) },
-    { path: '', redirectTo: '/home', pathMatch: 'full' }
+    {
+        path: 'auth',
+        children: [
+            { path: 'login', component: LoginComponent },
+            { path: 'signup', component: SignupComponent },
+        ]
+    },
+    {
+        path: "home",
+        canActivate: mapToCanActivate([AuthGuard]),
+        component: TechnologyRadarComponent
+    },
+    {
+        path: 'admin',
+        canActivate: mapToCanActivate([AuthGuard]),
+        children: [
+            { path: 'form', component: TechnologyFormComponent }
+        ],
+    },
+    { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ];

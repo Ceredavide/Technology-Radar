@@ -15,7 +15,7 @@ export class AuthGuard {
         if (authService.loggedIn) {
             return true;
         } else {
-            router.navigateByUrl('/login');
+            router.navigateByUrl('/auth/login');
             return false;
         }
     };
