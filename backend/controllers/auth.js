@@ -82,5 +82,12 @@ exports.login = async (req, res, next) => {
         return next(new HttpError("Something went wrong, try again later.", 500))
     }
 
-    res.status(200).json({ token })
+    let user = {
+        ...existingUser._doc
+    }
+
+    delete user._id
+    delete user.password
+
+    res.status(200).json({ token, user })
 }
