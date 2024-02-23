@@ -1,0 +1,23 @@
+<app-screen>
+        <div class="container">
+                <nav class="bg-gray-700 rounded-lg my-3">
+                        <div class="max-w-screen-xl px-4 py-3 mx-auto">
+                                <div class="flex items-center">
+                                        <ul
+                                                class="flex flex-row font-medium mt-0 space-x-8 rtl:space-x-reverse text-sm">
+                                                <li>
+                                                        <a href="/admin/dashboard"
+                                                                class="text-gray-900 dark:text-white hover:underline"
+                                                                aria-current="page">Dashboard</a>
+                                                </li>
+                                                <li>
+                                                        <a href="/admin/create-technology"
+                                                                class="text-gray-900 dark:text-white hover:underline">Add technology</a>
+                                                </li>
+                                        </ul>
+                                </div>
+                        </div>
+                </nav>
+                <router-outlet></router-outlet>
+        </div>
+</app-screen>
