@@ -124,6 +124,10 @@ exports.publishTechnology = async (req, res, next) => {
         return next(new HttpError("Technology not found.", 404))
     }
 
+    if (technology.published) {
+        return next(new HttpError("Technology already published.", 400))
+    }
+
     technology.ring = ring;
     technology.descriptionCategorization = descriptionCategorization;
     technology.publisher = userId;
