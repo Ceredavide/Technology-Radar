@@ -14,6 +14,6 @@ export class HomeService {
   constructor(private http: HttpClient) { }
  
   fetchPublishedTechnologies(): Observable<TechnologyViewer[]> {
-    return this.http.get<TechnologyViewer[]>(`${this.apiUrl}/technology`);
+    return this.http.get<TechnologyViewer[]>(`${this.apiUrl}/home/technology`);
   }
 }
