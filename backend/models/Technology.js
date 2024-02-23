@@ -18,7 +18,7 @@ const technologySchema = new Schema({
         type: String,
         required: [true, "Category name is required."],
         enum: {
-            values: Object.keys(CATEGORIES),
+            values: [...Object.keys(CATEGORIES), ...Object.values(CATEGORIES)],
             message: "{VALUE} is not supported."
         }
     },
@@ -26,7 +26,7 @@ const technologySchema = new Schema({
         type: String,
         required: false,
         enum: {
-            values: Object.keys(RINGS),
+            values: [...Object.keys(RINGS), ...Object.values(RINGS)],
             message: "{VALUE} is not supported."
         }
     },
@@ -34,17 +34,33 @@ const technologySchema = new Schema({
         type: String,
         required: false
     },
-    creator: { type: Schema.Types.ObjectId, ref: 'User' },
-    published: { type: Boolean, default: false },
+    creator: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    },
+    published: {
+        type: Boolean,
+        default: false
+    },
+    publisher: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: false,
+        default: null,
+    },
+    publishedAt: {
+        type: Date,
+        required: false,
+        default: null
+    }
 }, {
     timestamps: true,
     collection: "Technologies"
 })
 
 technologySchema.pre("save", function (next) {
-    this.category = CATEGORIES[this.category]
+    this.category = CATEGORIES[this.category] || this.category
     this.ring = RINGS[this.ring]
-
     next()
 })
 
