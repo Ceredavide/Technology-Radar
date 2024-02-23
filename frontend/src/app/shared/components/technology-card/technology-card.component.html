@@ -2,7 +2,7 @@
   <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 text-white">
     {{ technology.name }}
   </h5>
-  <p class="font-normal text-white text-white">
+  <p class="font-normal text-white">
     {{ technology.description }}
   </p>
   <div class="mt-3">
@@ -39,8 +39,8 @@
       <app-alert alertType="info" message="A categorization description is missing." />
     </ng-template>
   </div>
-  <div *ngIf="technology._id" class="my-4">
-    <div>
+  <div *ngIf="technology._id" class="mt-4">
+    <div class="grid lg:grid-cols-2">
       <div
         class="bg-green-700 bg-opacity-25 text-white border-2 border-green-800 text-xs font-medium me-2 px-2.5 py-2.5 rounded mb-3">
         {{technology.creator?.userName}} on {{technology.createdAt}}
@@ -51,14 +51,16 @@
       </div>
       <ng-template #publicationInfos>
         <div
-          class="bg-blue-700 bg-opacity-25 text-white border-2 border-blue-800 text-xs font-medium me-2 px-2.5 py-2.5 rounded ">
+          class="bg-blue-700 bg-opacity-25 text-white border-2 border-blue-800 text-xs font-medium me-2 px-2.5 py-2.5 rounded mb-3">
           {{technology.publisher?.userName}} on {{technology.publishedAt}}
         </div>
       </ng-template>
     </div>
     <div>
+    </div>
+    <div class="flex flex-row justify-end">
       <a *ngIf="!technology.published" [routerLink]="['/admin/technology', technology._id, 'publish']"
-        class="text-gray-900 dark:text-white hover:underline">
+        class="bg-blue-700 hover:bg-blue-800 text-white border-2 border-blue-800 text-xs font-medium me-2 px-2.5 py-2.5 rounded">
         Publish
       </a>
     </div>
