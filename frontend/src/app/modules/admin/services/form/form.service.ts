@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import Technology from '../../../../shared/interfaces/Technology';
+
+import TechnologyForm from '../../interfaces/TechnologyForm';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +13,8 @@ export class FormService {
 
   constructor(private http: HttpClient) { }
 
-  sendForm(formData: Technology) {
-    return this.http.post(`${this.apiUrl}/technology`, formData);
+  sendForm(formData: TechnologyForm) {
+    return this.http.post(`${this.apiUrl}/admin/technology`, formData);
   }
  
   fetchRingOptions(): Observable<[string, string][]> {
