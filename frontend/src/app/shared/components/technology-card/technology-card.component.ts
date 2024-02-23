@@ -1,12 +1,18 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import Technology from '../../../../shared/interfaces/Technology';
+import Technology from '../../interfaces/Technology';
+import { AlertComponent } from '../alert/alert.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'technology-card',
   standalone: true,
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    RouterLink,
+    AlertComponent
+  ],
   templateUrl: './technology-card.component.html'
 })
 export class TechnologyCardComponent {
