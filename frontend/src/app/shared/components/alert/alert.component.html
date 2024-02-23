@@ -1,5 +1,5 @@
 <div [ngClass]="{
-    'text-blue-800 border-blue-300 bg-blue-50 dark:text-blue-400 dark:border-blue-800': alertType === 'info',
+    'text-blue-800 border-blue-300 bg-blue-50 dark:text-blue-400 dark:border-blue-800': alertType === 'info' || alertType === null,
     'text-yellow-800 border-yellow-300 bg-yellow-50 dark:text-yellow-400 dark:border-yellow-800': alertType === 'warning',
     'text-red-800 border-red-300 bg-red-50 dark:text-red-400 dark:border-red-800': alertType === 'error',
     'text-green-800 border-green-300 bg-green-50 dark:text-green-400 dark:border-green-800': alertType === 'success'
