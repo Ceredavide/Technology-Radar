@@ -74,7 +74,7 @@ describe('TechnologyFormComponent', () => {
     expect(component.technologyForm.touched).toBeTruthy();
 
     expect(component.technologyForm.get('name')?.errors?.['required']).toBeTruthy();
-    expect(component.technologyForm.get('category.name')?.errors?.['required']).toBeTruthy();
+    expect(component.technologyForm.get('category')?.errors?.['required']).toBeTruthy();
     expect(component.technologyForm.get('description')?.errors?.['required']).toBeTruthy();
   });
 
