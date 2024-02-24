@@ -31,12 +31,10 @@ export class TechnologyFormComponent implements OnInit {
   constructor(private formService: FormService) {
     this.technologyForm = new FormGroup({
       name: new FormControl('', Validators.required),
-      category: new FormGroup({
-        name: new FormControl('', Validators.required),
-        description: new FormControl('')
-      }),
-      ring: new FormControl(''),
       description: new FormControl('', Validators.required),
+      category: new FormControl('', Validators.required),
+      ring: new FormControl(''),
+      descriptionCategorization: new FormControl('')
     });
   }
 

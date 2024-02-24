@@ -8,7 +8,7 @@
                   'bg-gray-50 text-gray-400 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600': selectedRing !== idx
             }">
                 <p>
-                    {{ ring.ringName }}
+                    {{ ring.name }}
                 </p>
                 <p>
                     ({{ring.technologies.length}})
@@ -20,11 +20,8 @@
         <h4 class="mb-2 text-3xl font-bold tracking-tight text-gray-900 text-white">
             Technologies:
         </h4>
-        <div *ngFor="let techonlogy of technologiesBySelectedRing">
-            <technology-card [technology]="techonlogy" />
-        </div>
-        <div *ngIf="technologiesBySelectedRing.length === 0">
-            <app-alert alertType="info" message="Currently there are no Technologies in those categories." />
-        </div>
+        <ng-content>
+
+        </ng-content>
     </div>
 </div>

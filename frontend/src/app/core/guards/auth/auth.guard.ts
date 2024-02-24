@@ -1,7 +1,7 @@
 import { Injectable, inject } from "@angular/core";
 import { CanActivateFn, Router } from "@angular/router";
 
-import { AuthService } from '../../auth/services/auth.service'
+import { AuthService } from '../../auth/services/auth/auth.service'
 
 @Injectable({ providedIn: 'root' })
 
@@ -15,7 +15,7 @@ export class AuthGuard {
         if (authService.loggedIn) {
             return true;
         } else {
-            router.navigateByUrl('/login');
+            router.navigateByUrl('/auth/login');
             return false;
         }
     };

@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'category-tabs',
   standalone: true,
-  imports: [ CommonModule],
+  imports: [CommonModule],
   templateUrl: './category-tabs.component.html'
 })
 export class CategoryTabs {
@@ -27,5 +27,4 @@ export class CategoryTabs {
     this.selectedTab = indexAsNumber
     this.onTabChange.emit(this.selectedTab)
   }
-  
 }

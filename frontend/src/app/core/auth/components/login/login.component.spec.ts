@@ -5,7 +5,8 @@ import { of, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 
 import { LoginComponent } from './login.component';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../services/auth/auth.service';
+import { UserData } from '../../interfaces/User';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -13,20 +14,19 @@ describe('LoginComponent', () => {
   let authServiceSpy: jasmine.SpyObj<AuthService>;
   let router: Router;
 
+  const mockUserData: UserData = { token: "gggggg", user: { userName: "gg", email: "test@hslu.ch", role: "tester", company: "HSLU" } }
+
   beforeEach(async () => {
     authServiceSpy = jasmine.createSpyObj('AuthService', ['login']);
+    const routerSpy = jasmine.createSpyObj('Router', ['navigateByUrl']);
     await TestBed.configureTestingModule({
-      imports: [
-        ReactiveFormsModule,
-        FormsModule,
-        RouterTestingModule.withRoutes([]),
-        LoginComponent
-      ],
+      imports: [ReactiveFormsModule, FormsModule,LoginComponent],
       providers: [
-        { provide: AuthService, useValue: authServiceSpy }
+        { provide: AuthService, useValue: authServiceSpy },
+        { provide: Router, useValue: routerSpy }
       ]
     }).compileComponents();
-
+  
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
     router = TestBed.inject(Router);
@@ -48,7 +48,7 @@ describe('LoginComponent', () => {
   });
 
   it('should call authService login method if form is valid', fakeAsync(() => {
-    authServiceSpy.login.and.returnValue(of({token: "gggggg"}));
+    authServiceSpy.login.and.returnValue(of(mockUserData));
     component.loginForm.controls['email'].setValue('test@example.com');
     component.loginForm.controls['password'].setValue('123456');
     component.tryLogin();
@@ -57,13 +57,12 @@ describe('LoginComponent', () => {
   }));
 
   it('should navigate to home on successful login', fakeAsync(() => {
-    const navigateSpy = spyOn(router, 'navigateByUrl');
-    authServiceSpy.login.and.returnValue(of({token: "gggggg"}));
+    authServiceSpy.login.and.returnValue(of(mockUserData));
     component.loginForm.controls['email'].setValue('test@example.com');
     component.loginForm.controls['password'].setValue('123456');
     component.tryLogin();
     tick();
-    expect(navigateSpy).toHaveBeenCalledWith('home');
+    expect(router.navigateByUrl).toHaveBeenCalledWith('home');
   }));
 
   it('should display error message on login failure', fakeAsync(() => {

@@ -18,8 +18,8 @@ describe('AlertComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should have default alertType "info"', () => {
-    expect(component.alertType).toEqual('info');
+  it('should have default alertType "null"', () => {
+    expect(component.alertType).toEqual(null);
   });
 
   it('should display the correct message', () => {

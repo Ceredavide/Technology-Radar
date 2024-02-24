@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { TechnologyFormComponent } from './technology-form.component';
 import { FormService } from '../../services/form/form.service';
 import { of, throwError } from 'rxjs';
+import TechnologyForm from '../../interfaces/TechnologyForm';
 
 describe('TechnologyFormComponent', () => {
   let component: TechnologyFormComponent;
@@ -73,12 +74,12 @@ describe('TechnologyFormComponent', () => {
     expect(component.technologyForm.touched).toBeTruthy();
 
     expect(component.technologyForm.get('name')?.errors?.['required']).toBeTruthy();
-    expect(component.technologyForm.get('category.name')?.errors?.['required']).toBeTruthy();
+    expect(component.technologyForm.get('category')?.errors?.['required']).toBeTruthy();
     expect(component.technologyForm.get('description')?.errors?.['required']).toBeTruthy();
   });
 
   it('should submit form if valid', () => {
-    const mockFormValue = { name: 'Angular', category: { name: 'Frontend', description: '' }, ring: 'Stable', description: 'A framework' };
+    const mockFormValue : TechnologyForm = { name: 'Angular', category: 'Frontend', descriptionCategorization: '' , ring: 'Stable', description: 'A framework' };
     const mockResponse = { message: 'Form submitted successfully' };
 
     component.technologyForm.setValue(mockFormValue);

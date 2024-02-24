@@ -10,40 +10,57 @@ const technologySchema = new Schema({
         type: String,
         required: [true, "Name field is required."],
     },
+    description: {
+        type: String,
+        required: [true, "Technology description is required."]
+    },
     category: {
-        name: {
-            type: String,
-            required: [true, "Category name is required."],
-            enum: {
-                values: Object.keys(CATEGORIES),
-                message: "{VALUE} is not supported."
-            }
-        },
-        description: { type: String, required: false }
+        type: String,
+        required: [true, "Category name is required."],
+        enum: {
+            values: [...Object.keys(CATEGORIES), ...Object.values(CATEGORIES)],
+            message: "{VALUE} is not supported."
+        }
     },
     ring: {
         type: String,
         required: false,
         enum: {
-            values: Object.keys(RINGS),
+            values: [...Object.keys(RINGS), ...Object.values(RINGS)],
             message: "{VALUE} is not supported."
         }
     },
-    description: {
+    descriptionCategorization: {
         type: String,
-        required: [true, "Technology description is required."]
+        required: false
     },
-    creator: { type: Schema.Types.ObjectId, ref: 'User' },
-    published: { type: Boolean, default: false },
+    creator: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    },
+    published: {
+        type: Boolean,
+        default: false
+    },
+    publisher: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: false,
+        default: null,
+    },
+    publishedAt: {
+        type: Date,
+        required: false,
+        default: null
+    }
 }, {
     timestamps: true,
     collection: "Technologies"
 })
 
 technologySchema.pre("save", function (next) {
-    this.category.name = CATEGORIES[this.category.name]
+    this.category = CATEGORIES[this.category] || this.category
     this.ring = RINGS[this.ring]
-
     next()
 })
 
