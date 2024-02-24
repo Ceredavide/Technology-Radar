@@ -28,10 +28,8 @@ describe('FormService', () => {
     it('#sendForm should post data correctly', () => {
         const dummyFormData: Technology = {
             name: "test",
-            category: {
-                name: "test",
-                description: "test"
-            },
+            category: "test",
+            descriptionCategorization: "gg",
             ring: "test",
             description: "test"
         };
