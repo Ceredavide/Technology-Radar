@@ -3,9 +3,9 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
-import { FormService } from '../../services/form/form.service'
+import { FormService } from '../../../services/form/form.service'
 import { HttpErrorResponse } from '@angular/common/http';
-import { ScreenComponent } from '../../../../shared/components/screen/screen.component';
+import { ScreenComponent } from '../../../../../shared/components/screen/screen.component';
 
 @Component({
   selector: 'app-technology-form',
