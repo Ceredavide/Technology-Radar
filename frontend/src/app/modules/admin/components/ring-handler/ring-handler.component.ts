@@ -54,6 +54,11 @@ export class RingHandlerComponent implements OnInit {
         this.technologyService.publishTechnology(this.technologyId, ringFormData).subscribe(res => {
           this.router.navigate(['/admin/dashboard']);
         })
+        break;
+      case "edit":
+        this.technologyService.editTecgnologyRing(this.technologyId, ringFormData).subscribe(res => {
+          this.router.navigate(['/admin/dashboard']);
+        })
     }
   }
 
@@ -61,13 +66,13 @@ export class RingHandlerComponent implements OnInit {
     this.router.navigateByUrl('admin/dashboard')
   }
 
-  setTitle(technologyName : string){
-    switch(this.action){
+  setTitle(technologyName: string) {
+    switch (this.action) {
       case "publish":
-        this.title=`Publish: Technology ${technologyName}`
+        this.title = `Publish: Technology ${technologyName}`
         break;
       case "edit":
-        this.title=`Edit Ring: Technology ${technologyName}`
+        this.title = `Edit Ring: Technology ${technologyName}`
         break;
     }
   }

@@ -43,7 +43,7 @@ exports.getAllTechnologies = async (req, res, next) => {
     let technologies
 
     try {
-        technologies = await Technology.find({}).populate("creator publisher","-_id -password -createdAt -updatedAt -role -__v")
+        technologies = await Technology.find({}).populate("creator publisher edits.user","-_id -password -createdAt -updatedAt -role -__v")
     } catch (err) {
         return next(new HttpError("Something went wrong, try again later.", 500))
     }
@@ -133,6 +133,53 @@ exports.publishTechnology = async (req, res, next) => {
     technology.publisher = userId;
     technology.publishedAt = new Date()
     technology.published = true
+    
+    const errors = technology.validateSync()
+
+    if (errors) {
+        errorsString = formatErrors(Object.values(errors.errors))
+        console.log(errorsString)
+        return next(new HttpError("Bad Request:" + errorsString, 400))
+    }else{
+        try {
+            await technology.save();
+        } catch (err) {
+            return next(new HttpError("Internal Server Error, please try again later.", 500))
+        }
+    }
+
+    res.status(200).json(technology.toObject())
+}
+
+exports.editTechnologyRing =async (req, res, next) => {
+
+    const { _id: userId } = req.userData
+
+    const technologyId = req.params.id
+
+    const {
+        ring,
+        descriptionCategorization
+    } = req.body
+
+    let technology
+
+    try {
+        technology = await Technology.findById(technologyId, ' -published -creator -createdAt -updatedAt -__v')
+    } catch (err) {
+        return next(new HttpError("Something went wrong, try again later.", 500))
+    }
+
+    if (!technology) {
+        return next(new HttpError("Technology not found.", 404))
+    }
+
+    technology.ring = ring;
+    technology.descriptionCategorization = descriptionCategorization;
+    technology.edits.push({
+        user: userId,
+        time: new Date()
+    })
     
     const errors = technology.validateSync()
 

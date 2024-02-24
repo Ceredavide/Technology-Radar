@@ -25,4 +25,8 @@ export class TechnologyService {
   publishTechnology(technologyId: string, ringFormData: RingForm): Observable<HttpResponse<200>> {
     return this.http.put<HttpResponse<200>>(`${this.apiUrl}/technology/publish/${technologyId}`, ringFormData);
   }
+
+  editTecgnologyRing(technologyId: string, ringFormData: RingForm): Observable<HttpResponse<200>> {
+    return this.http.put<HttpResponse<200>>(`${this.apiUrl}/technology/ring/${technologyId}`, ringFormData);
+  }
 }

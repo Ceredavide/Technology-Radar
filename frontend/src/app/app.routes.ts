@@ -32,7 +32,8 @@ export const routes: Routes = [
             { path: "", redirectTo: '/admin/dashboard', pathMatch: 'full' },
             { path: "dashboard", component: TechnologyDashboardComponent },
             { path: 'create-technology', component: TechnologyFormComponent },
-            { path: 'technology/:id/publish', component: RingHandlerComponent }
+            { path: 'technology/:id/publish', component: RingHandlerComponent },
+            { path: 'ring/:id/edit', component: RingHandlerComponent }
         ],
     },
     { path: '**', redirectTo: '/home', pathMatch: 'full' }
