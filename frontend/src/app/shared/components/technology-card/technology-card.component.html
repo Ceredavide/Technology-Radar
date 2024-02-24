@@ -1,7 +1,22 @@
 <div class="w-full block p-4 mb-4 border border-gray-900 rounded-lg shadow bg-gray-700 border-gray-700">
-  <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 text-white">
-    {{ technology.name }}
-  </h5>
+  <div class="flex flex-row justify-between mb-3">
+    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 text-white">
+      {{ technology.name }}
+    </h5>
+    <div *ngIf="technology._id" class="flex flex-row justify-end">
+      <a *ngIf="!technology.published; else editTechnologyRing"
+        [routerLink]="['/admin/technology', technology._id, 'publish']"
+        class="bg-blue-700 hover:bg-blue-800 text-white border-2 border-blue-800 text-xs font-medium me-2 px-2.5 py-2.5 rounded">
+        Publish
+      </a>
+      <ng-template #editTechnologyRing>
+        <a [routerLink]="['/admin/ring', technology._id, 'edit']"
+          class="bg-blue-700 hover:bg-blue-800 text-white border-2 border-blue-800 text-xs font-medium me-2 px-2.5 py-2.5 rounded">
+          Edit Ring
+        </a>
+      </ng-template>
+    </div>
+  </div>
   <p class="font-normal text-white">
     {{ technology.description }}
   </p>
@@ -40,11 +55,7 @@
     </ng-template>
   </div>
   <div *ngIf="technology._id" class="mt-4">
-    <div class="grid lg:grid-cols-2">
-      <div
-        class="bg-green-700 bg-opacity-25 text-white border-2 border-green-800 text-xs font-medium me-2 px-2.5 py-2.5 rounded mb-3">
-        {{technology.creator?.userName}} on {{technology.createdAt}}
-      </div>
+    <div class="grid lg:grid-cols-3">
       <div *ngIf="!technology.published; else publicationInfos"
         class="bg-yellow-700 bg-opacity-25 text-white border-2 border-yellow-800 text-xs font-medium me-2 px-2.5 py-2.5 rounded mb-3">
         Not Published yet.
@@ -55,14 +66,14 @@
           {{technology.publisher?.userName}} on {{technology.publishedAt}}
         </div>
       </ng-template>
-    </div>
-    <div>
-    </div>
-    <div class="flex flex-row justify-end">
-      <a *ngIf="!technology.published" [routerLink]="['/admin/technology', technology._id, 'publish']"
-        class="bg-blue-700 hover:bg-blue-800 text-white border-2 border-blue-800 text-xs font-medium me-2 px-2.5 py-2.5 rounded">
-        Publish
-      </a>
+      <div
+        class="bg-green-700 bg-opacity-25 text-white border-2 border-green-800 text-xs font-medium me-2 px-2.5 py-2.5 rounded mb-3">
+        {{technology.creator?.userName}} on {{technology.createdAt}}
+      </div>
+      <div
+        class="bg-purple-700 bg-opacity-25 text-white border-2 border-purple-800 text-xs font-medium me-2 px-2.5 py-2.5 rounded mb-3">
+        {{technology.edits.length}} Edit(s)
+      </div>
     </div>
   </div>
 </div>
