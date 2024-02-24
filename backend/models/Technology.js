@@ -52,7 +52,18 @@ const technologySchema = new Schema({
         type: Date,
         required: false,
         default: null
-    }
+    },
+    edits: [{
+        user: {
+          type: Schema.Types.ObjectId,
+          ref: 'User',
+          required: true
+        },
+        time: {
+          type: Date,
+          required: true
+        }
+      }]
 }, {
     timestamps: true,
     collection: "Technologies"
