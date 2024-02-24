@@ -2,8 +2,8 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
-import RingForm from '../../interfaces/RingForm';
-import { FormService } from '../../services/form/form.service';
+import RingForm from '../../../interfaces/RingForm';
+import { FormService } from '../../../services/form/form.service';
 
 @Component({
   selector: 'app-ring-form',
