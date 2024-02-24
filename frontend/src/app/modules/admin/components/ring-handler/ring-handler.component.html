@@ -1,0 +1,7 @@
+<div class="flex-col justify-center w-full">
+    <h4 class="mb-2 text-3xl font-bold tracking-tight text-gray-900 text-white">
+        {{title}}
+    </h4>
+    <app-ring-form [required]="true" [ringFormData]="ringFormData" (getRingFormValues)="handleSubmit($event)"
+        (stop)="handleGoBack()" class="w-full" />
+</div>
