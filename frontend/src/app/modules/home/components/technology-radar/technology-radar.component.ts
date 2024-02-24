@@ -9,7 +9,7 @@ import { HomeService } from '../../services/home.service';
 import { ScreenComponent } from '../../../../shared/components/screen/screen.component';
 import { AlertComponent } from '../../../../shared/components/alert/alert.component';
 import { TechnologyViewerComponent } from '../../../../shared/components/technology-viewer/technology-viewer.component';
-import { TechnologyCardComponent } from '../../../../shared/components/technology-card/technology-card.component';
+import { TechnologyCardComponent } from '../../../../shared/components/technology-viewer/components/technology-card/technology-card.component';
 
 @Component({
   selector: 'app-technology-radar',
