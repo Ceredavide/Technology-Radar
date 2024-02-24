@@ -1,0 +1,37 @@
+<form [formGroup]="ringForm" (ngSubmit)="onSubmit()" class="bg-gray-700 text-white rounded-lg p-6">
+  <div class="flex-row">
+    <div>
+      <label class="block text-md font-bold mb-2" for="ring">
+        Ring:
+      </label>
+      <div class="relative mb-3">
+        <select id="ring"
+          class="w-full  bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+          formControlName="ring">
+          <option value="">Choose a ring</option>
+          <option *ngFor="let ring of rings" [value]="ring[0]">{{ring[1]}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="mb-4">
+      <label class="block text-md font-bold mb-2" for="descriptionCategorization">
+        Description for category:
+      </label>
+      <textarea rows="8"
+        class="w-full shadow appearance-none border rounded  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        formControlName="descriptionCategorization" type="text" placeholder="">
+      </textarea>
+    </div>
+    <div class="flex justify-end mt-4">
+      <button (click)="onStop()" type="button"
+        class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+        Go Back
+      </button>
+      <button
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-3"
+        type="submit">
+        Confirm
+      </button>
+    </div>
+  </div>
+</form>
