@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { HomeService } from './home.service';
-import TechnologyRadar from '../interfaces/TechnologyRadar';
+import TechnologyViewer from '../../../shared/interfaces/TechnologyViewer';
 
 describe('HomeService', () => {
   let service: HomeService;
   let httpMock: HttpTestingController;
-  const apiUrl = 'http://localhost:8080/api/technology';
+  const apiUrl = 'http://localhost:8080/api/home/technology';
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -22,35 +22,32 @@ describe('HomeService', () => {
   });
 
   it('should fetch published technologies', () => {
-    const mockTechnologies: TechnologyRadar[] = [
-        {
-            categoryName: "testCategory",
-            values: [
-                {
-                    ringName: "testRing",
-                    technologies: [
-                        {
-                            name: "testTech",
-                            description : "this mock is too big",
-                            ring: "testRing",
-                            category: {
-                                name: "testCategory",
-                                description: "this mock is way to big"
-                            }
-                        }
-                    ]
-                }
-            ]
-        }
-    ];
+    const mockTechnologies: TechnologyViewer[] = [
+      {
+        category: "testCategory",
+        rings: [
+          {
+            name: "testRing",
+            technologies: [
+              {
+                name: "testTech",
+                description: "this mock is too big",
+                ring: "testRing",
+                category: "testCategory",
+                descriptionCategorization: "this mock is way to big"
+              }]
+          }
+        ]
+      }
+    ]
 
-    service.fetchPublishedTechnologies().subscribe(technologies => {
-      expect(technologies.length).toBe(1);
-      expect(technologies).toEqual(mockTechnologies);
-    });
-
-    const req = httpMock.expectOne(apiUrl);
-    expect(req.request.method).toBe('GET');
-    req.flush(mockTechnologies);
+  service.fetchPublishedTechnologies().subscribe(technologies => {
+    expect(technologies.length).toBe(1);
+    expect(technologies).toEqual(mockTechnologies);
   });
+
+  const req = httpMock.expectOne(apiUrl);
+  expect(req.request.method).toBe('GET');
+  req.flush(mockTechnologies);
+});
 });
