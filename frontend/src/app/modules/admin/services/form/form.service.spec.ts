@@ -35,10 +35,10 @@ describe('FormService', () => {
         };
 
         service.sendForm(dummyFormData).subscribe(data => {
-            expect(data).toEqual(dummyFormData); // o verifica l'effettiva risposta attesa
+            expect(data).toEqual(dummyFormData);
         });
 
-        const req = httpMock.expectOne(`${apiUrl}/technology`);
+        const req = httpMock.expectOne(`${apiUrl}/admin/technology`);
         expect(req.request.method).toBe('POST');
         req.flush(dummyFormData);
     });
