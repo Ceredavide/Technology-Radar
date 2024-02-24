@@ -1,6 +1,6 @@
 const express = require("express")
 
-const { getTechnologyById, getAllTechnologies, createTechnology, publishTechnology, editTechnologyRing } = require("../../controllers/technology");
+const { getTechnologyById, getAllTechnologies, createTechnology, publishTechnology, editTechnologyRing, editTechnology } = require("../../controllers/technology");
 
 const router = express.Router();
 
@@ -13,5 +13,7 @@ router.post('/technology', createTechnology);
 router.put('/technology/publish/:id', publishTechnology);
 
 router.put('/technology/ring/:id', editTechnologyRing);
+
+router.put('/technology/:id', editTechnology);
 
 module.exports = router
