@@ -14,4 +14,10 @@ export default interface Technology {
     publishedAt?: string,
     updatedAt?: string,
     __v?: number
+    edits: edit[]
+}
+
+interface edit {
+    user: User,
+    time: string
 }
