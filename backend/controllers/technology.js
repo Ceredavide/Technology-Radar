@@ -55,7 +55,6 @@ exports.getAllTechnologies = async (req, res, next) => {
     res.status(200).json(formattedTechnologiesWithIncompleteFields)
 }
 
-
 //
 //POST
 //
@@ -176,6 +175,55 @@ exports.editTechnologyRing =async (req, res, next) => {
 
     technology.ring = ring;
     technology.descriptionCategorization = descriptionCategorization;
+    technology.edits.push({
+        user: userId,
+        time: new Date()
+    })
+    
+    const errors = technology.validateSync()
+
+    if (errors) {
+        errorsString = formatErrors(Object.values(errors.errors))
+        console.log(errorsString)
+        return next(new HttpError("Bad Request:" + errorsString, 400))
+    }else{
+        try {
+            await technology.save();
+        } catch (err) {
+            return next(new HttpError("Internal Server Error, please try again later.", 500))
+        }
+    }
+
+    res.status(200).json(technology.toObject())
+}
+
+exports.editTechnology =async (req, res, next) => {
+
+    const { _id: userId } = req.userData
+
+    const technologyId = req.params.id
+
+    const {
+        name,
+        description,
+        category,
+    } = req.body
+
+    let technology
+
+    try {
+        technology = await Technology.findById(technologyId, ' -published -creator -createdAt -updatedAt -__v')
+    } catch (err) {
+        return next(new HttpError("Something went wrong, try again later.", 500))
+    }
+
+    if (!technology) {
+        return next(new HttpError("Technology not found.", 404))
+    }
+
+    technology.name = name;
+    technology.description = description;
+    technology.category = category
     technology.edits.push({
         user: userId,
         time: new Date()
