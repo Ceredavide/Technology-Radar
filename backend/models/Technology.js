@@ -71,7 +71,7 @@ const technologySchema = new Schema({
 
 technologySchema.pre("save", function (next) {
     this.category = CATEGORIES[this.category] || this.category
-    this.ring = RINGS[this.ring]
+    this.ring = RINGS[this.ring] || this.ring
     next()
 })
 
