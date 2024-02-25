@@ -4,6 +4,10 @@
       {{ technology.name }}
     </h5>
     <div *ngIf="technology._id" class="flex flex-row justify-end">
+      <a [routerLink]="['/admin/technology', technology._id, 'edit']"
+        class="bg-blue-700 hover:bg-blue-800 text-white border-2 border-blue-800 text-xs font-medium me-2 px-2.5 py-2.5 rounded">
+        Edit Technology
+      </a>
       <a *ngIf="!technology.published; else editTechnologyRing"
         [routerLink]="['/admin/technology', technology._id, 'publish']"
         class="bg-blue-700 hover:bg-blue-800 text-white border-2 border-blue-800 text-xs font-medium me-2 px-2.5 py-2.5 rounded">
