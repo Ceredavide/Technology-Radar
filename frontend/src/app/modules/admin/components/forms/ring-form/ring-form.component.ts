@@ -77,9 +77,6 @@ export class RingFormComponent implements OnInit, OnChanges {
   }
 
   sendRingFormValues() {
-    this.getRingFormValues.emit({
-      ring: this.ringForm.controls['ring'].value,
-      descriptionCategorization: this.ringForm.controls['descriptionCategorization'].value,
-    })
+    this.getRingFormValues.emit(this.ringForm.value)
   }
 }
