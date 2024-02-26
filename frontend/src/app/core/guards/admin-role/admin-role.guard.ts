@@ -10,8 +10,6 @@ export class AdminRoleGuard {
         const userService = inject(UserService);
         const router = inject(Router);
 
-        console.log(userService.getUser())
-
         if (userService.hasRole(["Chief Technology Officer"])) {
             return true;
         } else {
