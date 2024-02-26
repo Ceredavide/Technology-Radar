@@ -10,7 +10,7 @@
       </a>
       <a *ngIf="!technology.published; else editTechnologyRing"
         [routerLink]="['/admin/technology', technology._id, 'publish']"
-        class="bg-blue-700 hover:bg-blue-800 text-white border-2 border-blue-800 text-xs font-medium me-2 px-2.5 py-2.5 rounded">
+        class="bg-green-700 hover:bg-green-800 text-white border-2 border-green-800 text-xs font-medium me-2 px-2.5 py-2.5 rounded">
         Publish
       </a>
       <ng-template #editTechnologyRing>
@@ -61,21 +61,21 @@
   <div *ngIf="technology._id" class="mt-4">
     <div class="grid lg:grid-cols-3">
       <div *ngIf="!technology.published; else publicationInfos"
-        class="bg-yellow-700 bg-opacity-25 text-white border-2 border-yellow-800 text-xs font-medium me-2 px-2.5 py-2.5 rounded mb-3">
+        class="bg-yellow-700 bg-opacity-15 text-white border border-yellow-800 text-xs font-medium me-2 px-2.5 py-2.5 rounded mb-3">
         Not Published yet.
       </div>
       <ng-template #publicationInfos>
         <div
-          class="bg-blue-700 bg-opacity-25 text-white border-2 border-blue-800 text-xs font-medium me-2 px-2.5 py-2.5 rounded mb-3">
+          class="bg-blue-700 bg-opacity-25 text-white border border-blue-800 text-xs font-medium me-2 px-2.5 py-2.5 rounded mb-3">
           {{technology.publisher?.userName}} on {{technology.publishedAt}}
         </div>
       </ng-template>
       <div
-        class="bg-green-700 bg-opacity-25 text-white border-2 border-green-800 text-xs font-medium me-2 px-2.5 py-2.5 rounded mb-3">
+        class="bg-green-700 bg-opacity-15 text-white border border-green-800 text-xs font-medium me-2 px-2.5 py-2.5 rounded mb-3">
         {{technology.creator?.userName}} on {{technology.createdAt}}
       </div>
       <div
-        class="bg-purple-700 bg-opacity-25 text-white border-2 border-purple-800 text-xs font-medium me-2 px-2.5 py-2.5 rounded mb-3">
+        class="bg-purple-700 bg-opacity-15 text-white border border-purple-800 text-xs font-medium me-2 px-2.5 py-2.5 rounded mb-3">
         {{technology.edits.length}} Edit(s)
       </div>
     </div>
