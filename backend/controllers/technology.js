@@ -177,7 +177,8 @@ exports.editTechnologyRing =async (req, res, next) => {
     technology.descriptionCategorization = descriptionCategorization;
     technology.edits.push({
         user: userId,
-        time: new Date()
+        time: new Date(),
+        action: "ring"
     })
     
     const errors = technology.validateSync()
@@ -226,7 +227,8 @@ exports.editTechnology =async (req, res, next) => {
     technology.category = category
     technology.edits.push({
         user: userId,
-        time: new Date()
+        time: new Date(),
+        action: "technology"
     })
     
     const errors = technology.validateSync()

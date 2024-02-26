@@ -26,7 +26,7 @@ const technologySchema = new Schema({
         type: String,
         required: false,
         enum: {
-            values: [...Object.keys(RINGS), ...Object.values(RINGS)],
+            values: ["", ...Object.keys(RINGS), ...Object.values(RINGS)],
             message: "{VALUE} is not supported."
         }
     },
@@ -55,15 +55,23 @@ const technologySchema = new Schema({
     },
     edits: [{
         user: {
-          type: Schema.Types.ObjectId,
-          ref: 'User',
-          required: true
+            type: Schema.Types.ObjectId,
+            ref: 'User',
+            required: true
         },
         time: {
-          type: Date,
-          required: true
+            type: Date,
+            required: true
+        },
+        action: {
+            type: String,
+            required: true,
+            enum: {
+                values: ["technology", "ring"],
+                message: "{VALUE} is not supported."
+            }
         }
-      }]
+    }]
 }, {
     timestamps: true,
     collection: "Technologies"
