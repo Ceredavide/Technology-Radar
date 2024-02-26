@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import Technology from '../../interfaces/Technology';
-import { AlertComponent } from '../alert/alert.component';
+import Technology from '../../../../interfaces/Technology';
+import { AlertComponent } from '../../../alert/alert.component';
 import { RouterLink } from '@angular/router';
 
 @Component({

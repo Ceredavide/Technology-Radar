@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
-import RingForm from '../../interfaces/RingForm';
-import { FormService } from '../../services/form/form.service';
+import RingForm from '../../../interfaces/RingForm';
+import { FormService } from '../../../services/form/form.service';
 
 @Component({
   selector: 'app-ring-form',
@@ -21,13 +21,13 @@ export class RingFormComponent implements OnInit, OnChanges {
   required: boolean = false;
 
   @Input()
-  ringFormData: RingForm | null = null;
+  ringData: RingForm | null = null;
 
   @Output()
-  getRingFormValues = new EventEmitter<RingForm>();
+  handleSubmit = new EventEmitter<RingForm>();
 
   @Output()
-  stop = new EventEmitter<RingForm>();
+  handleGoBack = new EventEmitter<RingForm>();
 
   ringForm: FormGroup;
 
@@ -35,8 +35,8 @@ export class RingFormComponent implements OnInit, OnChanges {
 
   constructor(private formService: FormService) {
     this.ringForm = new FormGroup({
-      ring: new FormControl(""),
-      descriptionCategorization: new FormControl("")
+      ring: new FormControl("", Validators.required),
+      descriptionCategorization: new FormControl("",Validators.required)
     })
   }
 
@@ -44,20 +44,29 @@ export class RingFormComponent implements OnInit, OnChanges {
     this.formService.fetchRingOptions().subscribe({
       next: (result) => this.rings = result
     });
-    if (this.ringFormData) {
+    if (this.ringData) {
       this.ringForm.setValue({
-        ring: this.ringFormData.ring,
-        descriptionCategorization: this.ringFormData.descriptionCategorization
+        ring: this.ringData.ring,
+        descriptionCategorization: this.ringData.descriptionCategorization
       });
     }
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['ringFormData'] && this.ringFormData) {
+    if (changes['ringData'] && this.ringData) {
       this.ringForm.setValue({
-        ring: this.ringFormData.ring.toUpperCase(),
-        descriptionCategorization: this.ringFormData.descriptionCategorization
+        ring: this.ringData.ring.toUpperCase(),
+        descriptionCategorization: this.ringData.descriptionCategorization
       }, { emitEvent: false });
+    }
+  }
+  
+  getErrorState(fieldName: string) {
+    if(this.required){
+      const descriptionControl = this.ringForm.get(fieldName);
+      return descriptionControl?.errors && descriptionControl?.touched;
+    }else {
+      return false;
     }
   }
 
@@ -73,13 +82,10 @@ export class RingFormComponent implements OnInit, OnChanges {
   }
 
   onStop(){
-    this.stop.emit()
+    this.handleGoBack.emit()
   }
 
   sendRingFormValues() {
-    this.getRingFormValues.emit({
-      ring: this.ringForm.controls['ring'].value,
-      descriptionCategorization: this.ringForm.controls['descriptionCategorization'].value,
-    })
+    this.handleSubmit.emit(this.ringForm.value)
   }
 }

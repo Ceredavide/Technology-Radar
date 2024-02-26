@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import Ring from '../../../../interfaces/Ring';
 
-import { TechnologyCardComponent } from '../../../technology-card/technology-card.component';
+import { TechnologyCardComponent } from '../technology-card/technology-card.component';
 
 @Component({
   selector: 'ring-technologies',

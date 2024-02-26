@@ -1,0 +1,53 @@
+<form [formGroup]="ringForm" (ngSubmit)="onSubmit()" class="bg-gray-700 text-white rounded-lg p-6">
+  <div class="flex-row">
+    <div class="flex flex-col">
+      <label [ngClass]="{
+        'block text-md font-bold mb-3' : !getErrorState('ring'),
+        'block text-md text-red-500 mb-2' : getErrorState('ring')
+      }" for="ring">
+        Ring:
+      </label>
+      <select id="ring" [ngClass]="{
+          'w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500' : !getErrorState('ring'),
+          'border text-red-500 placeholder-red-500 border-red-500 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 ' : getErrorState('ring')
+        }" formControlName="ring">
+        <option value="">Choose a ring</option>
+        <option *ngFor="let ring of rings" [value]="ring[0]">{{ring[1]}}</option>
+      </select>
+      <div *ngIf="getErrorState('ring')">
+        <p *ngIf="ringForm.get('ring')?.errors?.['required']" class="mt-1 text-red-500 text-sm italic">
+          The ring is required.
+        </p>
+      </div>
+    </div>
+    <div class="mt-4 flex flex-col">
+      <label [ngClass]="{
+        'block text-md font-bold mb-3' : !getErrorState('descriptionCategorization'),
+        'block text-md text-red-500 mb-2' : getErrorState('descriptionCategorization')
+      }" for="descriptionCategorization">
+        Description for category:
+      </label>
+      <textarea rows="8" [ngClass]="{
+        'rounded w-full p-2.5 py-2 px-3 text-black' : !getErrorState('descriptionCategorization'),
+        'border text-red-500 placeholder-red-500 border-red-500 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 ' : getErrorState('descriptionCategorization')
+      }" formControlName="descriptionCategorization" type="text" placeholder="">
+      </textarea>
+      <div *ngIf="getErrorState('descriptionCategorization')">
+        <p *ngIf="ringForm.get('descriptionCategorization')?.errors?.['required']" class="mt-1 text-red-500 text-sm italic">
+          The description is required.
+        </p>
+      </div>
+    </div>
+    <div class="flex justify-end mt-4">
+      <button (click)="onStop()" type="button"
+        class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+        Go Back
+      </button>
+      <button
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-3"
+        type="submit">
+        Confirm
+      </button>
+    </div>
+  </div>
+</form>

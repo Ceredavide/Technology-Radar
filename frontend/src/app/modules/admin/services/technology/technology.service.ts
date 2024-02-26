@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import TechnologyViewer from '../../../../shared/interfaces/TechnologyViewer';
 import Technology from '../../../../shared/interfaces/Technology';
 import RingForm from '../../interfaces/RingForm';
+import TechnologyForm from '../../interfaces/TechnologyForm';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,10 @@ export class TechnologyService {
 
   publishTechnology(technologyId: string, ringFormData: RingForm): Observable<HttpResponse<200>> {
     return this.http.put<HttpResponse<200>>(`${this.apiUrl}/technology/publish/${technologyId}`, ringFormData);
+  }
+
+  editTechnology(technologyId: string, technologyFormData: TechnologyForm): Observable<HttpResponse<200>>{
+    return this.http.put<HttpResponse<200>>(`${this.apiUrl}/technology/${technologyId}`, technologyFormData);
   }
 
   editTecgnologyRing(technologyId: string, ringFormData: RingForm): Observable<HttpResponse<200>> {

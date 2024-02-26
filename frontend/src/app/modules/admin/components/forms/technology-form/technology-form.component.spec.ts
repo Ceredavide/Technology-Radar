@@ -2,9 +2,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TechnologyFormComponent } from './technology-form.component';
-import { FormService } from '../../services/form/form.service';
+import { FormService } from '../../../services/form/form.service';
 import { of, throwError } from 'rxjs';
-import TechnologyForm from '../../interfaces/TechnologyForm';
+import TechnologyForm from '../../../interfaces/TechnologyForm';
 
 describe('TechnologyFormComponent', () => {
   let component: TechnologyFormComponent;
