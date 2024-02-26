@@ -1,29 +1,36 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 import { FormService } from '../../../services/form/form.service'
 import { HttpErrorResponse } from '@angular/common/http';
-import { ScreenComponent } from '../../../../../shared/components/screen/screen.component';
+import TechnologyForm from '../../../interfaces/TechnologyForm';
 
 @Component({
   selector: 'app-technology-form',
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    CommonModule,
-    ScreenComponent
+    CommonModule
   ],
   templateUrl: './technology-form.component.html'
 })
 
-export class TechnologyFormComponent implements OnInit {
+export class TechnologyFormComponent implements OnInit, OnChanges {
+
+  @Input()
+  technologyData: TechnologyForm | null = null
+
+  @Output()
+  handleSubmit = new EventEmitter<any>();
+
+  @Output()
+  handleGoBack = new EventEmitter<TechnologyForm>();
 
   technologyForm: FormGroup;
 
   categories: [string, string][] = [];
-  rings: [string, string][] = [];
 
   formResult: any;
   error: HttpErrorResponse | null = null;
@@ -32,9 +39,7 @@ export class TechnologyFormComponent implements OnInit {
     this.technologyForm = new FormGroup({
       name: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
-      category: new FormControl('', Validators.required),
-      ring: new FormControl(''),
-      descriptionCategorization: new FormControl('')
+      category: new FormControl('', Validators.required)
     });
   }
 
@@ -43,20 +48,31 @@ export class TechnologyFormComponent implements OnInit {
       next: (result) => this.categories = result,
       error: (error: HttpErrorResponse) => this.error = error
     });
+  }
 
-    this.formService.fetchRingOptions().subscribe({
-      next: (result) => this.rings = result,
-      error: (error: HttpErrorResponse) => this.error = error
-    });
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['technologyData'] && this.technologyData) {
+      this.technologyForm.setValue({
+        name: this.technologyData.name,
+        description: this.technologyData.description,
+        category: this.technologyData.category.toUpperCase()
+      }, { emitEvent: false });
+    }
+  }
+
+  getErrorState(fieldName: string) {
+    const descriptionControl = this.technologyForm.get(fieldName);
+    return descriptionControl?.errors && descriptionControl?.touched;
   }
 
   sendForm() {
     this.technologyForm.markAllAsTouched();
     if (this.technologyForm.valid) {
-      this.formService.sendForm(this.technologyForm.value).subscribe({
-        next: (result) => this.formResult = result,
-        error: (error: HttpErrorResponse) => this.error = error
-      });
+      this.handleSubmit.emit(this.technologyForm.value)
     }
+  }
+
+  goBack() {
+    this.handleGoBack.emit()
   }
 }
