@@ -1,17 +1,15 @@
 import { Component } from '@angular/core';
-import { ScreenComponent } from '../../../../shared/components/screen/screen.component';
 import { RouterOutlet } from '@angular/router';
-import { AlertComponent } from '../../../../shared/components/alert/alert.component';
-import { CommonModule } from '@angular/common';
+
+import { ScreenComponent } from '../../../../shared/components/screen/screen.component';
+
 
 @Component({
   selector: 'app-admin-screen',
   standalone: true,
   imports: [
     RouterOutlet,
-    CommonModule,
-    ScreenComponent,
-    AlertComponent
+    ScreenComponent
   ],
   templateUrl: './admin-screen.component.html'
 })
