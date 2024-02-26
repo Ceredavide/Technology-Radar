@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { TechnologyService } from '../../services/technology/technology.service';
-import { RingFormComponent } from '../ring-form/ring-form.component';
+import { RingFormComponent } from '../forms/ring-form/ring-form.component';
 import RingForm from '../../interfaces/RingForm';
 
 @Component({
@@ -20,7 +20,7 @@ export class RingHandlerComponent implements OnInit {
   title: string = ""
 
   technologyId: string = ""
-  ringFormData: RingForm | null = null;
+  ringData: RingForm | null = null;
 
   action: string = "edit";
 
@@ -39,7 +39,7 @@ export class RingHandlerComponent implements OnInit {
 
   getRingValues(id: string): void {
     this.technologyService.getTechnologyById(id).subscribe(technology => {
-      this.ringFormData = {
+      this.ringData = {
         ring: technology.ring,
         descriptionCategorization: technology.descriptionCategorization
       }
@@ -69,10 +69,10 @@ export class RingHandlerComponent implements OnInit {
   setTitle(technologyName: string) {
     switch (this.action) {
       case "publish":
-        this.title = `Publish: Technology ${technologyName}`
+        this.title = `Publish: ${technologyName}`
         break;
       case "edit":
-        this.title = `Edit Ring: Technology ${technologyName}`
+        this.title = `Edit Ring: ${technologyName}`
         break;
     }
   }
