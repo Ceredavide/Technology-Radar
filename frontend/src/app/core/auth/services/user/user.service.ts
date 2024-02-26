@@ -29,7 +29,7 @@ export class UserService {
     localStorage.removeItem("user")
   }
 
-  checkUserRole(role: string[]) : boolean {
+  hasRole(role: string[]) : boolean {
     const user = this.getUser()
     if(!user){
       return false
