@@ -1,10 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { TechnologyFormComponent } from './technology-form.component';
-import { FormService } from '../../../services/form/form.service';
-import { of, throwError } from 'rxjs';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { throwError } from 'rxjs';
+
 import TechnologyForm from '../../../interfaces/TechnologyForm';
+import { FormService } from '../../../services/form/form.service';
+import { TechnologyFormComponent } from './technology-form.component';
 
 describe('TechnologyFormComponent', () => {
   let component: TechnologyFormComponent;
@@ -27,67 +28,68 @@ describe('TechnologyFormComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should fetch categories and rings on init', () => {
-    const mockCategories: [string, string][] = [["Hello", 'Frontend']];
-    const mockRings: [string, string][] = [["Hello", 'Frontend']];
-
-    spyOn(formService, 'fetchCategoriesOptions').and.returnValue(of(mockCategories));
-    spyOn(formService, 'fetchRingOptions').and.returnValue(of(mockRings));
-
-    component.ngOnInit();
-
-    expect(formService.fetchCategoriesOptions).toHaveBeenCalled();
-    expect(formService.fetchRingOptions).toHaveBeenCalled();
-    expect(component.categories).toEqual(mockCategories);
-    expect(component.rings).toEqual(mockRings);
+  it('should initialize the technologyForm with empty fields', () => {
+    const form = component.technologyForm;
+    expect(form.get('name')?.value).toEqual('');
+    expect(form.get('description')?.value).toEqual('');
+    expect(form.get('category')?.value).toEqual('');
   });
 
-  it('should handle error when fetching categories fails', () => {
-    const errorResponse = new Error('Failed to fetch categories');
-    spyOn(formService, 'fetchCategoriesOptions').and.returnValue(throwError(() => errorResponse));
-    spyOn(formService, 'fetchRingOptions').and.returnValue(of([]));
-
-    component.ngOnInit();
+  it('should populate the form when @Input technologyData changes', () => {
+    const mockTechnologyData : TechnologyForm = { name: 'Angular', description: 'Framework', category: 'Frontend' };
+    component.technologyData = mockTechnologyData;
+  
+    component.ngOnChanges({
+      technologyData: {
+        currentValue: mockTechnologyData,
+        previousValue: null,
+        firstChange: true,
+        isFirstChange: () => true
+      }
+    });
+  
     fixture.detectChanges();
-
-    expect(formService.fetchCategoriesOptions).toHaveBeenCalled();
-    expect(component.error?.message).toBe(errorResponse.message);
+  
+    expect(component.technologyForm.value).toEqual({
+      name: 'Angular',
+      description: 'Framework',
+      category: 'FRONTEND'
+    });
   });
 
-  it('should handle error when fetching rings fails', () => {
-    const errorResponse = new Error('Failed to fetch rings');
-    spyOn(formService, 'fetchRingOptions').and.returnValue(throwError(() => errorResponse));
-    spyOn(formService, 'fetchCategoriesOptions').and.returnValue(of([]));
+  it('should emit handleSubmit event with form value on valid form submission', () => {
+    spyOn(component.handleSubmit, 'emit');
 
-    component.ngOnInit();
-    fixture.detectChanges();
-
-    expect(formService.fetchRingOptions).toHaveBeenCalled();
-    expect(component.error?.message).toBe(errorResponse.message);
-  });
-
-  it('should populate errors when form is invalid', () => {
-    expect(component.technologyForm.valid).toBeFalsy();
-
+    component.technologyForm.setValue({ name: 'React', description: 'Library', category: 'Frontend' });
     component.sendForm();
 
-    expect(component.technologyForm.touched).toBeTruthy();
-
-    expect(component.technologyForm.get('name')?.errors?.['required']).toBeTruthy();
-    expect(component.technologyForm.get('category')?.errors?.['required']).toBeTruthy();
-    expect(component.technologyForm.get('description')?.errors?.['required']).toBeTruthy();
+    expect(component.handleSubmit.emit).toHaveBeenCalledWith({
+      name: 'React',
+      description: 'Library',
+      category: 'Frontend'
+    });
   });
 
-  it('should submit form if valid', () => {
-    const mockFormValue : TechnologyForm = { name: 'Angular', category: 'Frontend', descriptionCategorization: '' , ring: 'Stable', description: 'A framework' };
-    const mockResponse = { message: 'Form submitted successfully' };
-
-    component.technologyForm.setValue(mockFormValue);
-    spyOn(formService, 'sendForm').and.returnValue(of(mockResponse));
-
+  it('should not emit handleSubmit event if form is invalid', () => {
+    spyOn(component.handleSubmit, 'emit');
+    component.technologyForm.setValue({ name: '', description: '', category: '' });
     component.sendForm();
 
-    expect(formService.sendForm).toHaveBeenCalledWith(mockFormValue);
-    expect(component.formResult).toEqual(mockResponse);
+    expect(component.handleSubmit.emit).not.toHaveBeenCalled();
   });
+
+  it('should set error when fetchCategoriesOptions fails', () => {
+    spyOn(formService, 'fetchCategoriesOptions').and.returnValue(throwError(() => new Error('Service Error')));
+  
+    component.ngOnInit();
+  
+    expect(component.error).toBeTruthy();
+  });
+  
+  it('should emit handleGoBack event on goBack call', () => {
+    spyOn(component.handleGoBack, 'emit');
+    component.goBack();
+    expect(component.handleGoBack.emit).toHaveBeenCalled();
+  });
+
 });
