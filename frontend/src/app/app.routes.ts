@@ -11,10 +11,13 @@ import { TechnologyDashboardComponent } from './modules/admin/components/technol
 import { RingHandlerComponent } from './modules/admin/components/ring-handler/ring-handler.component';
 import { TechnologyHandlerComponent } from './modules/admin/components/technology-handler/technology-handler.component';
 import { TechnologyCreateComponent } from './modules/admin/components/technology-create/technology-create.component';
+import { LoggedInGuard } from './core/guards/loggedin/loggedin.guard';
+import { AdminRoleGuard } from './core/guards/admin-role/admin-role.guard';
 
 export const routes: Routes = [
     {
         path: 'auth',
+        canActivate: mapToCanActivate([LoggedInGuard]),
         children: [
             { path: 'login', component: LoginComponent },
             { path: 'signup', component: SignupComponent },
@@ -27,7 +30,7 @@ export const routes: Routes = [
     },
     {
         path: 'admin',
-        canActivate: mapToCanActivate([AuthGuard]),
+        canActivate: mapToCanActivate([AuthGuard, AdminRoleGuard]),
         component: AdminScreenComponent,
         children: [
             { path: "", redirectTo: '/admin/dashboard', pathMatch: 'full' },

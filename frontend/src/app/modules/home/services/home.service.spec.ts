@@ -34,7 +34,8 @@ describe('HomeService', () => {
                 description: "this mock is too big",
                 ring: "testRing",
                 category: "testCategory",
-                descriptionCategorization: "this mock is way to big"
+                descriptionCategorization: "this mock is way to big",
+                edits: []
               }]
           }
         ]
