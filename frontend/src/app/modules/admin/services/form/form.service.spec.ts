@@ -1,7 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+
+import FullForm from '../../interfaces/FullForm';
 import { FormService } from './form.service';
-import Technology from './../../../../shared/interfaces/Technology';
 
 describe('FormService', () => {
     let service: FormService;
@@ -26,7 +27,7 @@ describe('FormService', () => {
     });
 
     it('#sendForm should post data correctly', () => {
-        const dummyFormData: Technology = {
+        const dummyFormData: FullForm = {
             name: "test",
             category: "test",
             descriptionCategorization: "gg",
