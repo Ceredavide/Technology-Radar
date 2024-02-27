@@ -1,34 +1,26 @@
-# 
+# Web Programming Lab Projekt - Technology Radar
+### Davide Ceresa - HSLU - HS23
 
-**Über arc42**
+![alt text](./images/tech-radar-logo.png)
 
-arc42, das Template zur Dokumentation von Software- und
-Systemarchitekturen.
-
-Template Version 8.2 DE. (basiert auf AsciiDoc Version), Januar 2023
-
-Created, maintained and © by Dr. Peter Hruschka, Dr. Gernot Starke and
-contributors. Siehe <https://arc42.org>.
-
-# Einführung und Ziele {#section-introduction-and-goals}
+# 1. Einführung und Ziele
 
 ## Aufgabenstellung {#_aufgabenstellung}
 
+Der "Technologie-Radar" ist ein strategisches Instrument, das entwickelt wurde, um das Technologiemanagement innerhalb von Unternehmen zu unterstützen. Es ermöglicht Produktteams, Architekten und Ingenieuren, Technologien effektiv zu bewerten und auszuwählen, und bietet eine strukturierte Übersicht in vier Hauptkategorien: Techniken, Werkzeuge, Plattformen, Sprachen und Frameworks. Die Technologiereife wird durch die Stufen Assess, Trial, Adopt und Hold klassifiziert.
+
 ## Qualitätsziele {#_qualit_tsziele}
+
+Das Hauptziel des Technologie-Radars ist die Bereitstellung einer klaren und aktuellen Übersicht über Technologien, die innerhalb eines Unternehmens verwendet oder evaluiert werden. Dies unterstützt die Entscheidungsfindung bei der Technologieauswahl und -einführung. Die Plattform zielt darauf ab, benutzerfreundlich und intuitiv zu sein, um eine effektive Darstellung der Technologielandschaft des Unternehmens zu ermöglichen und dabei strategische Technologieentscheidungen zu erleichtern.
 
 ## Stakeholder {#_stakeholder}
 
-+-----------------+-----------------+-----------------------------------+
-| Rolle           | Kontakt         | Erwartungshaltung                 |
-+=================+=================+===================================+
-| *\<Rolle-1>*    | *\<Kontakt-1>*  | *\<Erwartung-1>*                  |
-+-----------------+-----------------+-----------------------------------+
-| *\<Rolle-2>*    | *\<Kontakt-2>*  | *\<Erwartung-2>*                  |
-+-----------------+-----------------+-----------------------------------+
+Das Projekt adressiert eine breite Palette von Stakeholdern, einschließlich CTOs, Tech-Leads, Produktmanagern, Softwarearchitekten und -entwicklern. Jeder Stakeholder hat unterschiedliche Anforderungen und Erwartungen an den Technologie-Radar. Während CTOs und Tech-Leads eine Gesamtansicht der Technologiestrategie und -adoption suchen, benötigen Entwickler und Architekten detaillierte Informationen zu spezifischen Technologien und deren Reife.
 
-# Randbedingungen {#section-architecture-constraints}
+<!-- # Randbedingungen {#section-architecture-constraints} -->
 
 # Kontextabgrenzung {#section-system-scope-and-context}
+
 
 ## Fachlicher Kontext {#_fachlicher_kontext}
 
@@ -215,3 +207,13 @@ der online-Dokumentation (auf Englisch!).
 +-----------------------+-----------------------------------------------+
 | *\<Begriff-2*         | *\<Definition-2>*                             |
 +-----------------------+-----------------------------------------------+
+
+**Über arc42**
+
+arc42, das Template zur Dokumentation von Software- und
+Systemarchitekturen.
+
+Template Version 8.2 DE. (basiert auf AsciiDoc Version), Januar 2023
+
+Created, maintained and © by Dr. Peter Hruschka, Dr. Gernot Starke and
+contributors. Siehe <https://arc42.org>.
