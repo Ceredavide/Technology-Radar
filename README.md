@@ -176,7 +176,7 @@ Das System kann jederzeit durch Ausführen des folgenden Befehls gestoppt werden
 foo@bar:~$ docker-compose down
 ```
 
-# 6. Qualitätsanforderungen {#section-quality-scenarios}
+# 6. Qualitätsanforderungen
 
 Die Qualitätsanforderungen wurden im Kapitel 1.2 Qualitätsziele definiert.
 
