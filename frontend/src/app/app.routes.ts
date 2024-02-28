@@ -2,7 +2,6 @@ import { Routes, mapToCanActivate } from '@angular/router';
 
 import { AuthGuard } from './core/guards/auth/auth.guard';
 import { LoginComponent } from './core/auth/components/login/login.component';
-import { SignupComponent } from './core/auth/components/signup/signup.component';
 
 
 import { TechnologyRadarComponent } from './modules/home/components/technology-radar/technology-radar.component';
@@ -19,12 +18,11 @@ export const routes: Routes = [
         path: 'auth',
         canActivate: mapToCanActivate([LoggedInGuard]),
         children: [
-            { path: 'login', component: LoginComponent },
-            { path: 'signup', component: SignupComponent },
+            { path: 'login', component: LoginComponent }
         ],
     },
     {
-        path: "home",
+        path: "",
         canActivate: mapToCanActivate([AuthGuard]),
         component: TechnologyRadarComponent
     },
@@ -35,7 +33,7 @@ export const routes: Routes = [
         children: [
             { path: "", redirectTo: '/admin/dashboard', pathMatch: 'full' },
             { path: "dashboard", component: TechnologyDashboardComponent },
-            { path: 'create-technology', component: TechnologyCreateComponent },
+            { path: 'technology/new', component: TechnologyCreateComponent },
             { path: 'technology/:id/publish', component: RingHandlerComponent },
             { path: 'ring/:id/edit', component: RingHandlerComponent },
             { path: 'technology/:id/edit', component: TechnologyHandlerComponent }
