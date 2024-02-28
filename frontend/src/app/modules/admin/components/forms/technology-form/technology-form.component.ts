@@ -1,17 +1,19 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import {ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
+import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 import { FormService } from '../../../services/form/form.service'
 import { HttpErrorResponse } from '@angular/common/http';
 import TechnologyForm from '../../../interfaces/TechnologyForm';
+import { AlertComponent } from '../../../../../shared/components/alert/alert.component';
 
 @Component({
   selector: 'app-technology-form',
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    CommonModule
+    CommonModule,
+    AlertComponent
   ],
   templateUrl: './technology-form.component.html'
 })
@@ -26,6 +28,8 @@ export class TechnologyFormComponent implements OnInit, OnChanges {
 
   @Output()
   handleGoBack = new EventEmitter<TechnologyForm>();
+
+  title: string = "Add a new Technology"
 
   technologyForm: FormGroup;
 
@@ -56,6 +60,9 @@ export class TechnologyFormComponent implements OnInit, OnChanges {
         description: this.technologyData.description,
         category: this.technologyData.category.toUpperCase()
       }, { emitEvent: false });
+      if(this.technologyData.name !== ""){
+        this.title = `Edit Technology: ${this.technologyData.name}`
+      }
     }
   }
 
