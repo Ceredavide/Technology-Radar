@@ -22,15 +22,19 @@ class Server {
             this.server.use(morgan('[:date[iso]] method::method url::url status::status res.time::response-time ms'));
         }
 
+        if (process.env.NODE_ENV === 'development') {
+            this.server.use(morgan('[:date[iso]] method::method url::url status::status res.time::response-time ms'));
+            this.server.use(cors({ origin: 'http://localhost:4200' }));
+        }
+
         setEnvVariables()
 
-        this.server.use(cors({origin: 'http://localhost:4200'}));
 
         this.server.use(bodyParser.json({ limit: '5mb' }));
 
         this.server.use(helmet())
 
-        this.server.use(require('../routes'))
+        this.server.use("/api", require('../routes'))
 
         this.server.use((req, res, next) => {
             throw new HttpError("Not Found.", 404)

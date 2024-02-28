@@ -5,7 +5,7 @@ module.exports = () => {
     let fileName;
 
     if (process.env.NODE_ENV === "production") {
-        fileName = "production.env"
+        fileName = ".env"
     } else {
         fileName = "development.env"
     }
