@@ -1,9 +1,9 @@
 <div class="w-full block p-4 mb-4 border border-gray-900 rounded-lg shadow bg-gray-700 border-gray-700">
-  <div class="flex flex-row justify-between mb-3">
+  <div class="grid xl:grid-cols-2 justify-between mb-3">
     <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 text-white">
       {{ technology.name }}
     </h5>
-    <div *ngIf="technology._id" class="flex flex-row justify-end">
+    <div *ngIf="isAdmin && technology._id" class="flex flex-row justify-end">
       <a [routerLink]="['/admin/technology', technology._id, 'edit']"
         class="bg-blue-700 hover:bg-blue-800 text-white border-2 border-blue-800 text-xs font-medium me-2 px-2.5 py-2.5 rounded">
         Edit Technology
@@ -61,21 +61,38 @@
   <div *ngIf="technology._id" class="mt-4">
     <div class="grid lg:grid-cols-3">
       <div *ngIf="!technology.published; else publicationInfos"
-        class="bg-yellow-700 bg-opacity-15 text-white border border-yellow-800 text-xs font-medium me-2 px-2.5 py-2.5 rounded mb-3">
+        class="flex bg-yellow-700 bg-opacity-15 text-white border border-yellow-800 text-xs font-medium me-2 px-2.5 py-2.5 rounded mb-3">
+        <svg class="w-6 h-6 text-white mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 14v7M5 5v9.5c5.6-5.5 8.4 2.7 14 0V4.8c-5.6 2.7-8.4-5.5-14 0Z"/>
+        </svg>
         Not Published yet.
       </div>
       <ng-template #publicationInfos>
         <div
-          class="bg-blue-700 bg-opacity-25 text-white border border-blue-800 text-xs font-medium me-2 px-2.5 py-2.5 rounded mb-3">
-          {{technology.publisher?.userName}} on {{technology.publishedAt}}
+          class="flex bg-blue-700 bg-opacity-25 text-white border border-blue-800 text-xs font-medium me-2 px-2.5 py-2.5 rounded mb-3">
+          <svg class="w-6 h-6 text-white mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+            viewBox="0 0 24 24">
+            <path fill-rule="evenodd"
+              d="M12 2a3 3 0 0 0-2.1.9l-.9.9a1 1 0 0 1-.7.3H7a3 3 0 0 0-3 3v1.2c0 .3 0 .5-.2.7l-1 .9a3 3 0 0 0 0 4.2l1 .9c.2.2.3.4.3.7V17a3 3 0 0 0 3 3h1.2c.3 0 .5 0 .7.2l.9 1a3 3 0 0 0 4.2 0l.9-1c.2-.2.4-.3.7-.3H17a3 3 0 0 0 3-3v-1.2c0-.3 0-.5.2-.7l1-.9a3 3 0 0 0 0-4.2l-1-.9a1 1 0 0 1-.3-.7V7a3 3 0 0 0-3-3h-1.2a1 1 0 0 1-.7-.2l-.9-1A3 3 0 0 0 12 2Zm3.7 7.7a1 1 0 1 0-1.4-1.4L10 12.6l-1.3-1.3a1 1 0 0 0-1.4 1.4l2 2c.4.4 1 .4 1.4 0l5-5Z"
+              clip-rule="evenodd" />
+          </svg>
+          {{technology.publisher?.userName}} - {{formatDate(technology.publishedAt) }}
         </div>
       </ng-template>
       <div
-        class="bg-green-700 bg-opacity-15 text-white border border-green-800 text-xs font-medium me-2 px-2.5 py-2.5 rounded mb-3">
-        {{technology.creator?.userName}} on {{technology.createdAt}}
+        class="flex bg-green-700 bg-opacity-15 text-white border border-green-800 text-xs font-medium me-2 px-2.5 py-2.5 rounded mb-3">
+        <svg class="w-6 h-6 text-white mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+          fill="none" viewBox="0 0 24 24">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M12 7.8v8.4M7.8 12h8.4m4.8 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+        </svg>
+        {{technology.creator?.userName}} - {{formatDate(technology.createdAt)}}
       </div>
       <div
-        class="bg-purple-700 bg-opacity-15 text-white border border-purple-800 text-xs font-medium me-2 px-2.5 py-2.5 rounded mb-3">
+        class="flex bg-purple-700 bg-opacity-15 text-white border border-purple-800 text-xs font-medium me-2 px-2.5 py-2.5 rounded mb-3">
+        <svg class="w-6 h-6 text-white mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.3 4.8 2.9 2.9M7 7H4a1 1 0 0 0-1 1v10c0 .6.4 1 1 1h11c.6 0 1-.4 1-1v-4.5m2.4-10a2 2 0 0 1 0 3l-6.8 6.8L8 14l.7-3.6 6.9-6.8a2 2 0 0 1 2.8 0Z"/>
+        </svg>
         {{technology.edits.length}} Edit(s)
       </div>
     </div>

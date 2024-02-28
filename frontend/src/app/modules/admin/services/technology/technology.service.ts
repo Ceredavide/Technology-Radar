@@ -11,7 +11,7 @@ import TechnologyForm from '../../interfaces/TechnologyForm';
 })
 export class TechnologyService {
 
-  private apiUrl = 'http://localhost:8080/api/admin';
+  private apiUrl = 'http://localhost:80/api/app/admin';
 
   constructor(private http: HttpClient) { }
 

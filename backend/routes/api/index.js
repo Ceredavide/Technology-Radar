@@ -9,6 +9,6 @@ router.use('/home', require('./home'));
 
 router.use('/options', require('./options'));
 
-router.use('/admin', checkRole([ROLES.CTO]), require('./admin'))
+router.use('/admin', checkRole([ROLES.CTO, ROLES.TECH_LEAD]), require('./admin'))
 
 module.exports = router;

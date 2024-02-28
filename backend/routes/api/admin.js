@@ -1,19 +1,22 @@
 const express = require("express")
 
+const checkRole = require('../../middlewares/checkRole');
+const ROLES = require('../../constants/ROLES');
+
 const { getTechnologyById, getAllTechnologies, createTechnology, publishTechnology, editTechnologyRing, editTechnology } = require("../../controllers/technology");
 
 const router = express.Router();
 
-router.get('/technology/:id', getTechnologyById);
-
 router.get('/technology', getAllTechnologies);
 
-router.post('/technology', createTechnology);
+router.get('/technology/:id', checkRole([ROLES.CTO]), getTechnologyById);
 
-router.put('/technology/publish/:id', publishTechnology);
+router.post('/technology', checkRole([ROLES.CTO]), createTechnology);
 
-router.put('/technology/ring/:id', editTechnologyRing);
+router.put('/technology/publish/:id', checkRole([ROLES.CTO]), publishTechnology);
 
-router.put('/technology/:id', editTechnology);
+router.put('/technology/ring/:id', checkRole([ROLES.CTO]), editTechnologyRing);
+
+router.put('/technology/:id', checkRole([ROLES.CTO]), editTechnology);
 
 module.exports = router

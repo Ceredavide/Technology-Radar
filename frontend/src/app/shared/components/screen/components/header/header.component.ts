@@ -26,7 +26,7 @@ export class HeaderComponent {
 
   constructor(private router: Router, private userService: UserService, private authService: AuthService) {
     this.userData = this.userService.getUser()
-    this.isAdmin = this.userService.hasRole(["Chief Technology Officer"])
+    this.isAdmin = this.userService.hasRole(["Chief Technology Officer", "Tech Lead"])
   }
 
   toggleMobileMenu() {

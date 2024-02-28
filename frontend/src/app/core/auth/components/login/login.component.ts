@@ -33,11 +33,16 @@ export class LoginComponent {
     })
   }
 
+  getErrorState(fieldName: string) {
+    const descriptionControl = this.loginForm.get(fieldName);
+    return descriptionControl?.errors && descriptionControl?.touched;
+  }
+
   tryLogin() {
     this.loginForm.markAllAsTouched();
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value).subscribe({
-        next: () => this.router.navigateByUrl("home"),
+        next: () => this.router.navigateByUrl(""),
         error: (error: HttpErrorResponse) => this.error = error
       })
     }
