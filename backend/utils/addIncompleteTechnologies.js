@@ -5,11 +5,11 @@ module.exports = addIncompleteTechnologies = (technologies, formattedTechnologie
         return {
             category: category.category,
             rings: [
+                ...category.rings,
                 {
                     name: "Undefined",
                     technologies: technologies.filter(technology => technology.category === category.category && technology.ring === "")
-                },
-                ...category.rings
+                }
             ]
         }
     })
