@@ -14,6 +14,6 @@ if (process.env.NODE_ENV === "test") {
 
 router.use('/auth', require('./auth'));
 
-router.use('/api', checkAuth ,require('./api'));
+router.use('/app', checkAuth ,require('./api'));
 
 module.exports = router;

@@ -9,7 +9,7 @@ import TechnologyViewer from '../../../shared/interfaces/TechnologyViewer';
 })
 export class HomeService {
 
-  private apiUrl = 'http://localhost:8080/api';
+  private apiUrl = 'http://localhost:80/api/app';
 
   constructor(private http: HttpClient) { }
  

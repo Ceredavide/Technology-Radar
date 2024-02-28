@@ -9,7 +9,7 @@ import FullForm from '../../interfaces/FullForm';
 })
 export class FormService {
 
-  private apiUrl = 'http://localhost:8080/api';
+  private apiUrl = 'http://localhost:80/api/app';
 
   constructor(private http: HttpClient) { }
 
