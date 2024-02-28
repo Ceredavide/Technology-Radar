@@ -10,7 +10,7 @@ export class AdminRoleGuard {
         const userService = inject(UserService);
         const router = inject(Router);
 
-        if (userService.hasRole(["Chief Technology Officer"])) {
+        if (userService.hasRole(["Chief Technology Officer", "Tech Lead"])) {
             return true;
         } else {
             router.navigateByUrl('/home');
