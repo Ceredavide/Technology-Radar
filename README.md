@@ -141,7 +141,7 @@ Das Produktionssystem wird mittels Docker Compose bereitgestellt. Im Folgenden f
 ```console
 foo@bar:~$ git clone https://github.com/Ceredavide/WEBLAB-PROJEKT.git
 foo@bar:~$ cd WEBLAB-PROJEKT/backend
-foo@bar:~$ cd mv example.env .env
+foo@bar:~$ mv example.env .env
 ```
 
 Hier muss der Variablen JWT_SECRET ein Wert zugewiesen werden.
