@@ -133,7 +133,7 @@ Das vorliegende Bild zeigt ein Backend-Routenschema einer Webanwendung. Es gibt 
 
 ![alt text](./images/bausteinschicht-backend.png)
 
-# 5. Verteilungssicht {#section-deployment-view}
+# 5. Verteilungssicht
 
 Bevor Sie mit der Installation fortfahren, stellen Sie sicher, dass die Ports `80` und `27017` Ihres Geräts derzeit nicht in Gebrauch sind.
 
