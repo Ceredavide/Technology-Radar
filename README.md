@@ -1,6 +1,8 @@
 # Web Programming Lab Projekt - Technology Radar
 ### Davide Ceresa - HSLU - HS23
 
+### [Screenshots](./screenshots/README.md)
+
 ![alt text](./images/tech-radar-logo.png)
 
 # 1. Einführung und Ziele
