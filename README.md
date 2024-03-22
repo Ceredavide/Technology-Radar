@@ -1,6 +1,8 @@
 # Web Programming Lab Projekt - Technology Radar
 ### Davide Ceresa - HSLU - HS23
 
+[Screenshots](./screenshots/README.md)
+
 ![alt text](./images/tech-radar-logo.png)
 
 # 1. Einführung und Ziele
@@ -14,9 +16,9 @@ Das Projekt, welches als Einzelaufgabe konzipiert ist, soll innerhalb von 60 Stu
 
 **Projekt-Ergebnisse:**
 - Architekturdokumentation: 35%
-- Fazit & Reflexion: 20%v
+- Fazit & Reflexion: 20%
 - Arbeitsjournal: 10%
-- Softwareartefakte: 35%technischer-kontext
+- Softwareartefakte: 35%
 
 **Präsentation:**
 - Aufbau, Verständlichkeit: 30%
@@ -131,7 +133,7 @@ Das vorliegende Bild zeigt ein Backend-Routenschema einer Webanwendung. Es gibt 
 
 ![alt text](./images/bausteinschicht-backend.png)
 
-# 5. Verteilungssicht {#section-deployment-view}
+# 5. Verteilungssicht
 
 Bevor Sie mit der Installation fortfahren, stellen Sie sicher, dass die Ports `80` und `27017` Ihres Geräts derzeit nicht in Gebrauch sind.
 
