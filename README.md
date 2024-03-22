@@ -16,9 +16,9 @@ Das Projekt, welches als Einzelaufgabe konzipiert ist, soll innerhalb von 60 Stu
 
 **Projekt-Ergebnisse:**
 - Architekturdokumentation: 35%
-- Fazit & Reflexion: 20%v
+- Fazit & Reflexion: 20%
 - Arbeitsjournal: 10%
-- Softwareartefakte: 35%technischer-kontext
+- Softwareartefakte: 35%
 
 **Präsentation:**
 - Aufbau, Verständlichkeit: 30%
