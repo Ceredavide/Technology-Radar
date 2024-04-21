@@ -1,18 +1,18 @@
 // import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-// import { AdminScreenComponent } from './admin-screen.component';
+// import { TechnologyCreateComponent } from './technology-create.component';
 
-// describe('AdminScreenComponent', () => {
-//   let component: AdminScreenComponent;
-//   let fixture: ComponentFixture<AdminScreenComponent>;
+// describe('TechnologyCreateComponent', () => {
+//   let component: TechnologyCreateComponent;
+//   let fixture: ComponentFixture<TechnologyCreateComponent>;
 
 //   beforeEach(async () => {
 //     await TestBed.configureTestingModule({
-//       imports: [AdminScreenComponent]
+//       imports: [TechnologyCreateComponent]
 //     })
 //     .compileComponents();
     
-//     fixture = TestBed.createComponent(AdminScreenComponent);
+//     fixture = TestBed.createComponent(TechnologyCreateComponent);
 //     component = fixture.componentInstance;
 //     fixture.detectChanges();
 //   });
