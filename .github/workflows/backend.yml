@@ -3,7 +3,13 @@
 
 name: Backend-Node.js CI
 
-on: [push, pull_request]
+on:
+  push:
+    paths:
+      - 'backend/**'
+  pull_request:
+    paths:
+      - 'backend/**'
 
 jobs:
   build:
