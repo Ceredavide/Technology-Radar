@@ -5,9 +5,7 @@ describe("Technology Model Validation", () => {
     it("should validate a technology with all required fields", () => {
         const techData = {
             name: "Valid Technology Name",
-            category: { 
-                name: Object.keys(CATEGORIES)[0], 
-            },
+            category: Object.keys(CATEGORIES)[0], 
             description: "Valid description"
         };
 
@@ -27,7 +25,7 @@ describe("Technology Model Validation", () => {
 
         expect(validationError).toBeDefined();
         expect(validationError.errors["name"]).toBeDefined();
-        expect(validationError.errors["category.name"]).toBeDefined();
+        expect(validationError.errors["category"]).toBeDefined();
         expect(validationError.errors["description"]).toBeDefined();
     });
 
