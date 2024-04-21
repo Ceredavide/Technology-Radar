@@ -7,9 +7,11 @@ on:
   push:
     paths:
       - 'backend/**'
+      - '.github/workflows/backend.yml'
   pull_request:
     paths:
       - 'backend/**'
+      - '.github/workflows/backend.yml'
 
 jobs:
   build:
