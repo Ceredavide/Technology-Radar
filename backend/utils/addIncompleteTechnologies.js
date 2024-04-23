@@ -1,6 +1,4 @@
-//TODO: improve name
-
-module.exports = addIncompleteTechnologies = (technologies, formattedTechnologies) => {
+const addIncompleteTechnologies = (technologies, formattedTechnologies) => {
     return formattedTechnologies.map(category => {
         return {
             category: category.category,
@@ -14,3 +12,5 @@ module.exports = addIncompleteTechnologies = (technologies, formattedTechnologie
         }
     })
 }
+
+module.exports = addIncompleteTechnologies;
