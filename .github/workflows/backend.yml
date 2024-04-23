@@ -40,7 +40,7 @@ jobs:
     - name: Run Tests
       run: |
         cd backend
-        npm test:ci
+        npm run test:ci
         cp coverage/lcov.info ../lcov.info
 
     - name: Jest Coverage Comment
