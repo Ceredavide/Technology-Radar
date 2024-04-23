@@ -10,6 +10,11 @@ module.exports = async (req, res, next) => {
     let user;
 
     try {
+
+        if (!req.headers.authorization) {
+            throw new Error("Authorization header not provided.")
+        }
+
         const token = req.headers.authorization.split(" ")[1]
 
         if (!token) {
@@ -18,22 +23,17 @@ module.exports = async (req, res, next) => {
 
         decodedToken = jwt.verify(token, process.env.JWT_SECRET)
 
+
+        user = await User.findById(decodedToken.id)
+
+
+        if (!user) {
+            throw new Error("User not found with this token.")
+        }
+
     } catch (err) {
-        console.log(err)
         return next(new HttpError("Unauthorized", 401))
     }
-
-    try {
-        user = await User.findById(decodedToken.id)
-    } catch (err) {
-        return next(new HttpError("Token not valid."))
-    }
-
-    if (!user) {
-        return next(new HttpError("Token not valid."))
-    }
-
-    console.log("Utente connesso: " + user.id)
 
     req.userData = user;
 
