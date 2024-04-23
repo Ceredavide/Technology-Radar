@@ -52,6 +52,4 @@ jobs:
         hide-comment: false
         create-new-comment: false
         hide-summary: false
-        coverage-title: See all coverage details
-        coverage-path: ./coverage.txt
       
