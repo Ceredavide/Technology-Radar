@@ -41,10 +41,17 @@ jobs:
       run: |
         cd backend
         npm run test:ci
-        ls -la ./coverage
 
     - name: Jest Coverage Comment
       uses: MishaKav/jest-coverage-comment@main
       with:
         coverage-summary-path: ./backend/coverage/coverage-summary.json
+        title: Backend Test Coverage
+        summary-title: Summary
+        badge-title: Coverage
+        hide-comment: false
+        create-new-comment: false
+        hide-summary: false
+        coverage-title: See all coverage details
+        coverage-path: ./coverage.txt
       
