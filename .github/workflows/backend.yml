@@ -41,7 +41,8 @@ jobs:
       run: |
         cd backend
         npm run test:ci
-        cp coverage/lcov.info ../lcov.info
+        cp coverage/coverage-final.json ../coverage-final.json
+        cp coverage/coverage-summary.json ../coverage-summary.json
 
     - name: Jest Coverage Comment
       uses: MishaKav/jest-coverage-comment@main
