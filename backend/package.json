@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "NODE_ENV=test jest",
+    "test:ci" : "NODE_ENV=test jest --coverage --coverageReporters json-summary",
     "dev": "NODE_ENV=development nodemon index.js",
     "prod": "NODE_ENV=production node index.js"
   },
