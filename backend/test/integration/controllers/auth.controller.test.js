@@ -1,7 +1,11 @@
 const supertest = require('supertest');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+
 const Server = require('../../../classes/Server');
 const User = require('../../../models/User');
+
+jest.mock('jsonwebtoken');
 
 const app = Server().express;
 
@@ -55,6 +59,8 @@ describe('User Controller Tests', () => {
   describe('POST /login', () => {
     test('should log in an existing user and return a token', async () => {
 
+      jwt.sign.mockImplementation((payload, secret, options) => 'mocked-token');
+
       const response = await supertest(app)
         .post('/api/auth/login')
         .send({
@@ -63,7 +69,7 @@ describe('User Controller Tests', () => {
         })
         .expect(200);
 
-      expect(response.body.token).toBeDefined();
+      expect(response.body.token).toBe('mocked-token');
       expect(response.body.user.email).toBe('alreadycreated@example.com');
     });
 
