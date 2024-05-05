@@ -1,7 +1,7 @@
 const CATEGORIES = require("../constants/CATEGORIES");
 const RINGS = require("../constants/RINGS");
 
-module.exports = formatTechnologies = (technologies) => {
+const formatTechnologies = (technologies) => {
     return Object.values(CATEGORIES).reduce((accumulator, currentCategoryValue) => {
         accumulator.push({
             category: currentCategoryValue,
@@ -17,3 +17,5 @@ module.exports = formatTechnologies = (technologies) => {
         return accumulator;
     }, []);
 }
+
+module.exports = formatTechnologies;

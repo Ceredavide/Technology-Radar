@@ -1,4 +1,4 @@
-const User = require("../../models/User");
+const User = require("../../../models/User");
 
 describe("User Model Validation", () => {
     it("should validate a user with all required fields", () => {

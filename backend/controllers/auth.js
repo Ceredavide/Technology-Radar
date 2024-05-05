@@ -1,93 +1,61 @@
-const bcrypt = require("bcryptjs")
+const bcrypt = require("bcryptjs");
 const jwt = require('jsonwebtoken');
 
-const User = require("../models/User")
-const HttpError = require("../classes/HttpError")
+const User = require("../models/User");
+const HttpError = require("../classes/HttpError");
+const asyncHandler = require("../utils/asyncHandler");
 
-exports.signup = async (req, res, next) => {
-
-    const { email, password, company } = req.body
-
-    let existingUser
-
-    try {
-        existingUser = await User.findOne({ email: email })
-    } catch (err) {
-        console.log(err)
-        return next(new HttpError("Something went wrong, try again later.", 500))
-    }
-
-    if (existingUser) {
-        return next(new HttpError("There is already an user with that email.", 422))
-    }
-
-    let hashedPassword;
-
-    try {
-        hashedPassword = bcrypt.hashSync(password, 12)
-    } catch (err) {
-        console.log(err)
-        return next(new HttpError("Something went wrong, try again later.", 500))
-    }
-
-    const newUser = new User({
-        email: email.trim(),
-        password: hashedPassword,
-        company: company
-    })
-
-    try {
-        await newUser.save()
-    } catch (err) {
-        console.log(err)
-        return next(new HttpError("Something went wrong, try again later.", 500))
-    }
-
-    res.status(201).json()
+function generateToken(userId) {
+    return jwt.sign({ id: userId }, process.env.JWT_SECRET, { expiresIn: "30d" });
 }
 
-exports.login = async (req, res, next) => {
-
-    const { email, password } = req.body
-
-    let existingUser
+exports.signup = asyncHandler(async (req, res, next) => {
+    const { email, password, company } = req.body;
 
     try {
-        existingUser = await User.findOne({ email }).select("-createdAt -updatedAt -__v")
-    } catch (err) {
-        return next(new HttpError("Something went wrong, try again later.", 500))
-    }
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return next(new HttpError("There is already an user with that email.", 422));
+        }
 
-    if (!existingUser) {
-        return next(new HttpError("User not found.", 401))
-    }
+        const hashedPassword = bcrypt.hashSync(password, 12);
+        const newUser = new User({
+            email: email.trim(),
+            password: hashedPassword,
+            company
+        });
 
-    let isValidPassword;
+        await newUser.save();
+        res.status(201).json({ message: "User created successfully" });
+    } catch (error) {
+        console.log(error);
+        next(new HttpError("Internal Server Error.", 500));
+    }
+})
+
+exports.login = asyncHandler(async (req, res, next) => {
+    const { email, password } = req.body;
 
     try {
-        isValidPassword = await bcrypt.compare(password, existingUser.password)
-    } catch (err) {
-        return next(new HttpError("Something went wrong, try again later.", 500))
+        const existingUser = await User.findOne({ email }).select("-createdAt -updatedAt -__v");
+        if (!existingUser) {
+            return next(new HttpError("User not found.", 401));
+        }
+
+        const isValidPassword = await bcrypt.compare(password, existingUser.password);
+        if (!isValidPassword) {
+            return next(new HttpError("Password is wrong, try again.", 401));
+        }
+
+        const token = generateToken(existingUser.id);
+
+        const user = { ...existingUser._doc };
+        delete user._id;
+        delete user.password;
+
+        res.status(200).json({ token, user });
+    } catch (error) {
+        console.log(error);
+        next(new HttpError("Internal Server Error.", 500));
     }
-
-    if (!isValidPassword) {
-        return next(new HttpError("Password is wrong, try again.", 401))
-    }
-
-    let token;
-
-    try {
-        token = await jwt.sign({ id: existingUser.id }, process.env.JWT_SECRET, { expiresIn: "30d" })
-    } catch (err) {
-        return next(new HttpError("Something went wrong, try again later.", 500))
-    }
-
-    let user = {
-        ...existingUser._doc
-    }
-
-    delete user._id
-    delete user.password
-
-    res.status(200).json({ token, user })
-}
+})

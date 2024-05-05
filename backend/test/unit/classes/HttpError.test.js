@@ -1,4 +1,4 @@
-const HttpError = require('../../classes/HttpError');
+const HttpError = require('../../../classes/HttpError');
 
 describe('HttpError Class', () => {
   it('should create an HttpError with message and statusCode', () => {
