@@ -5,7 +5,8 @@ import { Injectable } from '@angular/core';
 })
 
 export class TokenService {
-  private tokenKey = 'access_token';
+
+  private readonly tokenKey = 'access_token';
 
   setToken(token: string): void {
     localStorage.setItem(this.tokenKey, token);
