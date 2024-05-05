@@ -6,34 +6,30 @@ import User from '../../interfaces/User';
 })
 export class UserService {
 
+  private readonly userKey = 'user';
+
   constructor() { }
 
-  storeUser(user: User) {
-    localStorage.setItem("user", JSON.stringify(user))
+  storeUser(user: User): void {
+    localStorage.setItem(this.userKey, JSON.stringify(user));
   }
 
   getUser(): User | null {
     try {
-      const userString = localStorage.getItem("user");
-      if (userString) {
-        const user: User = JSON.parse(userString);
-        return user;
-      }
+      const userString = localStorage.getItem(this.userKey);
+      return userString ? JSON.parse(userString) : null;
     } catch (error) {
-      console.error("Error while parsing user data from localStorage:", error);
+      console.error('Error while parsing user data from localStorage:', error);
+      return null;
     }
-    return null;
   }
 
-  deleteUser(){
-    localStorage.removeItem("user")
+  deleteUser(): void {
+    localStorage.removeItem(this.userKey);
   }
 
-  hasRole(role: string[]) : boolean {
-    const user = this.getUser()
-    if(!user){
-      return false
-    }
-    return role.includes(user.role)
+  hasRole(roles: string[]): boolean {
+    const user = this.getUser();
+    return user ? roles.includes(user.role) : false;
   }
 }
