@@ -8,11 +8,14 @@ const errorHandler = require("../controllers/error");
 const setEnvVariables = require("../utils/setEnvVariables");
 
 class Server {
-    server;
-
     constructor() {
-        this.server = express();
+        if (typeof Server.instance === 'object') {
+            return Server.instance;
+        }
+
+        this.express = express();
         this.setUp();
+        Server.instance = this;
     }
 
     setUp = () => {
@@ -26,18 +29,25 @@ class Server {
 
         setEnvVariables();
 
-        this.server.use(express.json({ limit: '5mb' }));
+        this.express.use(express.json({ limit: '5mb' }));
 
-        this.server.use(helmet());
+        this.express.use(helmet());
 
-        this.server.use("/api", require('../routes'));
+        this.express.use("/api", require('../routes'));
 
-        this.server.use((req, res, next) => {
+        this.express.use((req, res, next) => {
             throw new HttpError("Not Found.", 404);
         });
 
-        this.server.use(errorHandler);
+        this.express.use(errorHandler);
     }
 }
 
-module.exports = Server;
+const getInstance = () => {
+    if (!Server.instance) {
+        Server.instance = new Server();
+    }
+    return Server.instance;
+}
+
+module.exports = getInstance;
