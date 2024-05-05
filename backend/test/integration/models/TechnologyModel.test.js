@@ -1,24 +1,12 @@
-const mongoose = require('mongoose');
-const { MongoMemoryServer } = require('mongodb-memory-server');
-
-const Technology = require('../../models/Technology');
+const Technology = require('../../../models/Technology');
+const User = require('../../../models/User');
 
 describe('Technology Model Tests', () => {
-    let mongoServer;
 
     beforeAll(async () => {
-        mongoServer = await MongoMemoryServer.create();
-        const mongoUri = mongoServer.getUri();
-        await mongoose.connect(mongoUri);
-    });
-
-    afterEach(async () => {
-        await mongoose.connection.dropDatabase();
-    });
-
-    afterAll(async () => {
-        await mongoose.disconnect();
-        await mongoServer.stop();
+        const mockUser = new User({email: 'john@example.com', password: 'password', company: 'HSLU'});
+        const savedUser = await mockUser.save();
+        mockUserId = savedUser._id;
     });
 
     it('creates a valid technology', async () => {
@@ -26,7 +14,8 @@ describe('Technology Model Tests', () => {
             name: 'Node.js',
             description: 'JavaScript runtime built on Chrome\'s V8 JavaScript engine.',
             category: 'Techniques',
-            ring: 'Adopt'
+            ring: 'Adopt',
+            user: mockUserId
         });
 
         const savedTech = await validTech.save();
@@ -43,7 +32,8 @@ describe('Technology Model Tests', () => {
                 name: 'React',
                 description: 'A JS library for building UIs.',
                 category: 'GG',
-                ring: 'Adopt'
+                ring: 'Adopt',
+                user: mockUserId
             }).save();
         } catch (err) {
             expect(err.errors.category).toBeDefined();
@@ -56,7 +46,8 @@ describe('Technology Model Tests', () => {
             name: 'Angular',
             description: 'A comprehensive framework.',
             category: 'Techniques',
-            ring: 'Hold'
+            ring: 'Hold',
+            user: mockUserId
         }).save();
 
         const updatedTech = await Technology.findByIdAndUpdate(tech._id, { $set: { ring: 'Adopt' } }, { new: true });
@@ -68,7 +59,8 @@ describe('Technology Model Tests', () => {
             name: 'Docker',
             description: 'Container platform',
             category: 'Techniques',
-            ring: 'Adopt'
+            ring: 'Adopt',
+            user: mockUserId
         });
 
         const savedTech = await tech.save();
