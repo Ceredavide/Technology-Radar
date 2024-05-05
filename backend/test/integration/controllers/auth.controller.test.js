@@ -1,10 +1,22 @@
 const supertest = require('supertest');
+const bcrypt = require('bcryptjs');
 const Server = require('../../../classes/Server');
 const User = require('../../../models/User');
 
 const app = Server().express;
 
 describe('User Controller Tests', () => {
+
+  let hashedPassword;
+
+  beforeAll(async () => { 
+    hashedPassword = bcrypt.hashSync('Password123', 12);
+    await User.create({
+      email: 'alreadycreated@example.com',
+      password: hashedPassword,
+      company: 'Test Company'
+    }); 
+  });
 
   describe('POST /signup', () => {
     test('should create a new user and return 201', async () => {
@@ -21,12 +33,11 @@ describe('User Controller Tests', () => {
     });
 
     test('should return 422 if user already exists', async () => {
-      const existingUser = new User({
+      await User.create({
         email: 'alreadythere@example.com',
         password: 'Password123',
         company: 'Test Company'
       });
-      await existingUser.save();
 
       const response = await supertest(app)
         .post('/api/auth/signup')
@@ -47,13 +58,13 @@ describe('User Controller Tests', () => {
       const response = await supertest(app)
         .post('/api/auth/login')
         .send({
-          email: 'test@example.com',
+          email: 'alreadycreated@example.com',
           password: 'Password123'
         })
         .expect(200);
 
       expect(response.body.token).toBeDefined();
-      expect(response.body.user.email).toBe('test@example.com');
+      expect(response.body.user.email).toBe('alreadycreated@example.com');
     });
 
     test('should return 401 if password is incorrect', async () => {
