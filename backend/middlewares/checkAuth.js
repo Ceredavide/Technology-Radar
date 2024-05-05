@@ -1,41 +1,27 @@
-const jwt = require("jsonwebtoken")
-
-const HttpError = require("../classes/HttpError")
-const User = require("../models/User")
+const jwt = require("jsonwebtoken");
+const HttpError = require("../classes/HttpError");
+const User = require("../models/User");
 
 module.exports = async (req, res, next) => {
-
-    let decodedToken;
-
-    let user;
-
-    try {
-
-        if (!req.headers.authorization) {
-            throw new Error("Authorization header not provided.")
-        }
-
-        const token = req.headers.authorization.split(" ")[1]
-
-        if (!token) {
-            throw new Error("Token not valid.")
-        }
-
-        decodedToken = jwt.verify(token, process.env.JWT_SECRET)
-
-
-        user = await User.findById(decodedToken.id)
-
-
-        if (!user) {
-            throw new Error("User not found with this token.")
-        }
-
-    } catch (err) {
-        return next(new HttpError("Unauthorized", 401))
+    if (!req.headers.authorization) {
+        return next(new HttpError("Authorization header not provided.", 401));
     }
 
-    req.userData = user;
+    const token = req.headers.authorization.split(" ")[1];
+    if (!token) {
+        return next(new HttpError("Token not provided.", 401));
+    }
 
-    return next()
-}
+    try {
+        const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+        const user = await User.findById(decodedToken.id);
+        if (!user) {
+            return next(new HttpError("User not found with this token.", 401));
+        }
+        req.userData = user;
+        next();
+    } catch (err) {
+        console.error(err);
+        next(new HttpError("Unauthorized", 401));
+    }
+};
