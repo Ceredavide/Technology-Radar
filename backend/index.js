@@ -12,20 +12,22 @@ const connectToDb = async (dbUrl) => {
     }
 }
 
-const startServer = (server, port) => {
+const startServer = (app, port) => {
     console.log("Starting Server....");
-    server.listen(port, () => {
+    app.listen(port, () => {
         console.log(`Server running on port ${port}`);
     });
 }
 
 const run = async () => {
-    const server = new Server().server;
     const dbUrl = process.env.DB_URL || "mongodb://db:27017/tech-radar";
     const port = process.env.PORT || 8000;
 
     await connectToDb(dbUrl);
-    startServer(server, port);
+
+    const app = Server().express;
+
+    startServer(app, port);
 }
 
 run();
