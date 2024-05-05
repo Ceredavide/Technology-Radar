@@ -1,5 +1,5 @@
 // Tests for the addIncompleteTechnologies function
-const addIncompleteTechnologies = require('../../utils/addIncompleteTechnologies');
+const addIncompleteTechnologies = require('../../../utils/addIncompleteTechnologies');
 
 describe('addIncompleteTechnologies', () => {
     it('adds technologies with undefined rings correctly', () => {
