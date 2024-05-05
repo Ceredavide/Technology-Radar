@@ -1,73 +1,84 @@
-// import { TestBed } from '@angular/core/testing';
-// import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { FormService } from './form.service';
+import FullForm from '../../interfaces/FullForm';
 
-// import FullForm from '../../interfaces/FullForm';
-// import { FormService } from './form.service';
+describe('FormService', () => {
+  let service: FormService;
+  let httpTestingController: HttpTestingController;
 
-// describe('FormService', () => {
-//     let service: FormService;
-//     let httpMock: HttpTestingController;
-//     const apiUrl = 'http://localhost:8080/api';
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+      providers: [FormService]
+    });
+    service = TestBed.inject(FormService);
+    httpTestingController = TestBed.inject(HttpTestingController);
+  });
 
-//     beforeEach(() => {
-//         TestBed.configureTestingModule({
-//             imports: [HttpClientTestingModule],
-//             providers: [FormService]
-//         });
-//         service = TestBed.inject(FormService);
-//         httpMock = TestBed.inject(HttpTestingController);
-//     });
+  afterEach(() => {
+    httpTestingController.verify();
+  });
 
-//     afterEach(() => {
-//         httpMock.verify();
-//     });
+  it('should send form data correctly', () => {
+    const testData: FullForm = {
+        name: "Artificial Intelligence",
+        description: "Techniques used to create applications that can engage in behaviors that humans consider intelligent.",
+        category: "Machine Learning",
+        ring: "Adopt",
+        descriptionCategorization: "High strategic importance and recommended for widespread adoption."
+    };
+    
 
-//     it('should be created', () => {
-//         expect(service).toBeTruthy();
-//     });
+    service.sendForm(testData).subscribe(response => {
+      expect(response).toBeTruthy();
+    });
 
-//     it('#sendForm should post data correctly', () => {
-//         const dummyFormData: FullForm = {
-//             name: "test",
-//             category: "test",
-//             descriptionCategorization: "gg",
-//             ring: "test",
-//             description: "test"
-//         };
+    const req = httpTestingController.expectOne(`${service['apiUrl']}/admin/technology`);
+    expect(req.request.method).toEqual('POST');
+    expect(req.request.body).toEqual(testData);
+    req.flush({status: 'success'});
+  });
 
-//         service.sendForm(dummyFormData).subscribe(data => {
-//             expect(data).toEqual(dummyFormData);
-//         });
+  it('should fetch ring options correctly', () => {
+    const mockRingOptions: [string, string][] = [['1', 'Option1'], ['2', 'Option2']];
 
-//         const req = httpMock.expectOne(`${apiUrl}/admin/technology`);
-//         expect(req.request.method).toBe('POST');
-//         req.flush(dummyFormData);
-//     });
+    service.fetchRingOptions().subscribe(options => {
+      expect(options.length).toBe(2);
+      expect(options).toEqual(mockRingOptions);
+    });
 
-//     it('#fetchRingOptions should return an Observable of ring options', () => {
-//         const dummyOptions: [string, string][] = [['1', 'Option 1'], ['2', 'Option 2']];
+    const req = httpTestingController.expectOne(`${service['apiUrl']}/options/rings`);
+    expect(req.request.method).toBe('GET');
+    req.flush(mockRingOptions);
+  });
 
-//         service.fetchRingOptions().subscribe(options => {
-//             expect(options.length).toBe(2);
-//             expect(options).toEqual(dummyOptions);
-//         });
+  it('should fetch categories options correctly', () => {
+    const mockCategoriesOptions: [string, string][] = [['1', 'Category1'], ['2', 'Category2']];
 
-//         const req = httpMock.expectOne(`${apiUrl}/options/rings`);
-//         expect(req.request.method).toBe('GET');
-//         req.flush(dummyOptions);
-//     });
+    service.fetchCategoriesOptions().subscribe(options => {
+      expect(options.length).toBe(2);
+      expect(options).toEqual(mockCategoriesOptions);
+    });
 
-//     it('#fetchCategoriesOptions should return an Observable of categories options', () => {
-//         const dummyOptions: [string, string][] = [['1', 'Category 1'], ['2', 'Category 2']];
+    const req = httpTestingController.expectOne(`${service['apiUrl']}/options/categories`);
+    expect(req.request.method).toBe('GET');
+    req.flush(mockCategoriesOptions);
+  });
 
-//         service.fetchCategoriesOptions().subscribe(options => {
-//             expect(options.length).toBe(2);
-//             expect(options).toEqual(dummyOptions);
-//         });
+  it('should handle errors when fetching ring options', () => {
+    const mockErrorMsg = '404 error occurred';
 
-//         const req = httpMock.expectOne(`${apiUrl}/options/categories`);
-//         expect(req.request.method).toBe('GET');
-//         req.flush(dummyOptions);
-//     });
+    service.fetchRingOptions().subscribe({
+      next: options => fail('should have failed with 404 error'),
+      error: error => {
+        expect(error.status).toBe(404);
+        expect(error.statusText).toBe('Not Found');
+      }
+    });
 
-// });
+    const req = httpTestingController.expectOne(`${service['apiUrl']}/options/rings`);
+    req.flush(mockErrorMsg, { status: 404, statusText: 'Not Found' });
+  });
+});
+
