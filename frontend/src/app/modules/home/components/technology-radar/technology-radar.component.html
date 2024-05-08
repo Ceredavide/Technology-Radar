@@ -1,7 +1,7 @@
 <app-screen>
     <div class="container mx-auto">
         <div class="w-full bg-gray-800">
-            <technology-viewer [technologyRadar]="technologyRadar" (setSelectedTechnologies)="setTechnologies($event)">
+            <technology-viewer [technologyRadar]="technologyRadar" (technologiesChanged)="setTechnologies($event)">
                 <div *ngFor="let techonlogy of selectedTechnologies">
                     <technology-card [technology]="techonlogy" />
                 </div>
