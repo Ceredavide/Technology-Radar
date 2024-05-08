@@ -1,7 +1,5 @@
 # Web Programming Lab Projekt - Technology Radar
-[![Test Frontend (Angular - Karma)](https://github.com/Ceredavide/WEBLAB-PROJEKT/actions/workflows/frontend.yml/badge.svg)](https://github.com/Ceredavide/WEBLAB-PROJEKT/actions/workflows/frontend.yml)
-
-[![Run Tests Backend](https://github.com/Ceredavide/WEBLAB-PROJEKT/actions/workflows/backend.yml/badge.svg)](https://github.com/Ceredavide/WEBLAB-PROJEKT/actions/workflows/backend.yml)
+[![Test Frontend (Angular - Karma)](https://github.com/Ceredavide/WEBLAB-PROJEKT/actions/workflows/frontend.yml/badge.svg)](https://github.com/Ceredavide/WEBLAB-PROJEKT/actions/workflows/frontend.yml) [![Run Tests Backend](https://github.com/Ceredavide/WEBLAB-PROJEKT/actions/workflows/backend.yml/badge.svg)](https://github.com/Ceredavide/WEBLAB-PROJEKT/actions/workflows/backend.yml)
 ### Davide Ceresa - HSLU - HS23
 
 <!-- Jest Coverage Comment: jest-coverage-comment -->
