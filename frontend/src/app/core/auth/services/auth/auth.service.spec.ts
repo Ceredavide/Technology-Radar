@@ -1,53 +1,72 @@
-// import { TestBed } from '@angular/core/testing';
-// import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-// import { AuthService } from './auth.service';
+import { TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { AuthService } from './auth.service';
+import { UserService } from '../user/user.service';
+import { TokenService } from '../token/token.service';
+import  LoginData from '../../interfaces/loginData';
+import { UserData } from '../../interfaces/User';
 
-// describe('AuthService', () => {
-//   let service: AuthService;
-//   let httpMock: HttpTestingController;
+describe('AuthService', () => {
+  let service: AuthService;
+  let httpTestingController: HttpTestingController;
+  let userService: jasmine.SpyObj<UserService>;
+  let tokenService: jasmine.SpyObj<TokenService>;
 
-//   beforeEach(() => {
-//     TestBed.configureTestingModule({
-//       imports: [HttpClientTestingModule],
-//       providers: [AuthService]
-//     });
-//     service = TestBed.inject(AuthService);
-//     httpMock = TestBed.inject(HttpTestingController);
-//   });
+  beforeEach(() => {
+    const userServiceSpy = jasmine.createSpyObj('UserService', ['storeUser', 'deleteUser']);
+    const tokenServiceSpy = jasmine.createSpyObj('TokenService', ['setToken', 'clearToken', 'getToken']);
 
-//   afterEach(() => {
-//     httpMock.verify();
-//   });
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+      providers: [
+        AuthService,
+        { provide: UserService, useValue: userServiceSpy },
+        { provide: TokenService, useValue: tokenServiceSpy }
+      ]
+    });
 
-//   it('should be created', () => {
-//     expect(service).toBeTruthy();
-//   });
+    service = TestBed.inject(AuthService);
+    httpTestingController = TestBed.inject(HttpTestingController);
+    userService = TestBed.inject(UserService) as jasmine.SpyObj<UserService>;
+    tokenService = TestBed.inject(TokenService) as jasmine.SpyObj<TokenService>;
+  });
 
-//   it('should send a login request and store the token', () => {
-//     const loginData = { email: 'test', password: 'password' };
-//     const mockToken = 'fake-token';
+  afterEach(() => {
+    httpTestingController.verify();
+  });
 
-//     service.login(loginData).subscribe(res => {
-//       expect(res.token).toBe(mockToken);
-//       expect(localStorage.getItem('access_token')).toBe(mockToken);
-//     });
+  it('should be created', () => {
+    expect(service).toBeTruthy();
+  });
 
-//     const req = httpMock.expectOne(`${service.apiUrl}/auth/login`);
-//     expect(req.request.method).toBe('POST');
-//     req.flush({ token: mockToken });
-//   });
+  it('login should post user data, store token, and user data', () => {
+    const mockLoginData: LoginData = { email: 'testuser', password: 'testpass' };
+    const mockResponse: UserData = { user: { userName: 'Test User', company: "HSLU", email: "gg@hslu.ch", role: "CTO" }, token: '123456' };
 
-//   it('should remove the token on logout', () => {
-//     localStorage.setItem('access_token', 'fake-token');
-//     service.logout();
-//     expect(localStorage.getItem('access_token')).toBeNull();
-//   });
+    service.login(mockLoginData).subscribe(response => {
+      expect(response).toEqual(mockResponse);
+      expect(tokenService.setToken).toHaveBeenCalledWith('123456');
+      expect(userService.storeUser).toHaveBeenCalledWith(mockResponse.user);
+    });
 
-//   it('should return loggedIn status', () => {
-//     localStorage.removeItem('access_token');
-//     expect(service.loggedIn).toBeFalse();
-//     localStorage.setItem('access_token', 'fake-token');
-//     expect(service.loggedIn).toBeTrue();
-//   });
+    const req = httpTestingController.expectOne(`${service.apiUrl}/login`);
+    expect(req.request.method).toEqual('POST');
+    req.flush(mockResponse);
+  });
 
-// });
+  it('logout should clear token and user data', () => {
+    service.logout();
+    expect(tokenService.clearToken).toHaveBeenCalled();
+    expect(userService.deleteUser).toHaveBeenCalled();
+  });
+
+  it('loggedIn should return true when token exists', () => {
+    tokenService.getToken.and.returnValue('123456');
+    expect(service.loggedIn).toBeTrue();
+  });
+
+  it('loggedIn should return false when no token exists', () => {
+    tokenService.getToken.and.returnValue(null);
+    expect(service.loggedIn).toBeFalse();
+  });
+});

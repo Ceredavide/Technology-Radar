@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 import { ScreenComponent } from '../../../../shared/components/screen/screen.component';
 import { UserService } from '../../../../core/auth/services/user/user.service';
-import { CommonModule } from '@angular/common';
 
+const CTO_ROLE = 'Chief Technology Officer';
 
 @Component({
   selector: 'app-admin-screen',
@@ -17,11 +18,20 @@ import { CommonModule } from '@angular/common';
   ],
   templateUrl: './admin-screen.component.html'
 })
-export class AdminScreenComponent {
+export class AdminScreenComponent implements OnInit {
+  isAdmin: boolean = false;
 
-  isAdmin : boolean = false
+  constructor(private userService: UserService) { }
 
-  constructor(private userService: UserService) {
-    this.isAdmin = this.userService.hasRole(["Chief Technology Officer"])
+  ngOnInit(): void {
+    this.checkAdminRole();
+  }
+
+  private checkAdminRole(): void {
+    try {
+      this.isAdmin = this.userService.hasRole([CTO_ROLE]);
+    } catch (error) {
+      console.error('Error checking user role:', error);
+    }
   }
 }

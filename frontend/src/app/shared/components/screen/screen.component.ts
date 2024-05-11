@@ -8,6 +8,4 @@ import { FooterComponent } from './components/footer/footer.component';
   imports: [HeaderComponent, FooterComponent],
   templateUrl: './screen.component.html'
 })
-export class ScreenComponent {
-
-}
+export class ScreenComponent {}

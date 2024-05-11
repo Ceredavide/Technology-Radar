@@ -18,33 +18,33 @@ import { AlertComponent } from '../../../../shared/components/alert/alert.compon
   templateUrl: './login.component.html'
 })
 export class LoginComponent {
-
-  loginForm: FormGroup;
+  loginForm: FormGroup = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required])
+  });
 
   error: HttpErrorResponse | null = null;
 
-  router: Router;
-
-  constructor(private authService: AuthService, router: Router) {
-    this.router = router;
-    this.loginForm = new FormGroup({
-      email: new FormControl("", [Validators.required, Validators.email]),
-      password: new FormControl("", [Validators.required])
-    })
-  }
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   getErrorState(fieldName: string) {
     const descriptionControl = this.loginForm.get(fieldName);
     return descriptionControl?.errors && descriptionControl?.touched;
   }
 
-  tryLogin() {
+  tryLogin(): void {
     this.loginForm.markAllAsTouched();
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value).subscribe({
-        next: () => this.router.navigateByUrl(""),
-        error: (error: HttpErrorResponse) => this.error = error
-      })
+        next: () => {
+          this.router.navigateByUrl('/dashboard');
+          return void 0;
+        },
+        error: (error: HttpErrorResponse) => this.error = error.error.message || 'Unknown error'
+      });
     }
   }
 }

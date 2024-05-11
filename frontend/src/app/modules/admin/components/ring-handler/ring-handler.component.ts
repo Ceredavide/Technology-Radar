@@ -56,7 +56,7 @@ export class RingHandlerComponent implements OnInit {
         })
         break;
       case "edit":
-        this.technologyService.editTecgnologyRing(this.technologyId, ringFormData).subscribe(res => {
+        this.technologyService.editTechnologyRing(this.technologyId, ringFormData).subscribe(res => {
           this.router.navigate(['/admin/dashboard']);
         })
     }
