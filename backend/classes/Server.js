@@ -20,11 +20,11 @@ class Server {
 
     setUp = () => {
         if (process.env.NODE_ENV !== 'test') {
-            this.server.use(morgan('[:date[iso]] method::method url::url status::status res.time::response-time ms'));
+            this.express.use(morgan('[:date[iso]] method::method url::url status::status res.time::response-time ms'));
         }
 
         if (process.env.NODE_ENV === 'development') {
-            this.server.use(cors({ origin: process.env.CORS_ORIGIN || 'http://localhost:4200' }));
+            this.express.use(cors({ origin: process.env.CORS_ORIGIN || 'http://localhost:4200' }));
         }
 
         setEnvVariables();
