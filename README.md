@@ -189,10 +189,9 @@ Die Qualitätsanforderungen wurden im Kapitel 1.2 Qualitätsziele definiert.
 
 | Titel           | Beschreibung                                                                                                                                                 | Art        | Geschätzter Aufwand |
 | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- | ------------------- |
-| Tests           | Korrektur und Vervollständigung von Tests                                                                                                                    | Test       | 8h                  |
 | Error Handling  | Korrekte Anzeige von Fehlern aus dem Backend in Formularen                                                                                                   | Fix        | 2h                  |
 | User Management | Möglichkeit für Nutzer, sich zu registrieren und ihre Registrierung bestätigen oder ablehnen zu lassen; bestätigte Nutzer können auf die Anwendung zugreifen | Feat       | 8h                  |
-|                 |                                                                                                                                                              | **Total:** | **18h**             |
+|                 |                                                                                                                                                              | **Total:** | **10h**             |
 
 # 8. Reflektion
 
