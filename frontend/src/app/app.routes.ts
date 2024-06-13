@@ -22,7 +22,7 @@ export const routes: Routes = [
         ],
     },
     {
-        path: "",
+        path: 'dashboard',
         canActivate: mapToCanActivate([AuthGuard]),
         component: TechnologyRadarComponent
     },
@@ -39,5 +39,5 @@ export const routes: Routes = [
             { path: 'technology/:id/edit', component: TechnologyHandlerComponent }
         ],
     },
-    { path: '**', redirectTo: '/home', pathMatch: 'full' }
+    { path: '**', redirectTo: 'dashboard', pathMatch: 'full' }
 ];
