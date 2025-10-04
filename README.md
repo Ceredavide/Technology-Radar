@@ -145,7 +145,7 @@ Das Produktionssystem wird mittels Docker Compose bereitgestellt. Im Folgenden f
 ### 5.1 Download Projekt- und variable Steuer .env
 ```console
 foo@bar:~$ git clone https://github.com/Ceredavide/Technology-Radar.git
-foo@bar:~$ cd WEBLAB-PROJEKT/backend
+foo@bar:~$ cd Technology-Radar/backend
 foo@bar:~$ mv example.env .env
 ```
 
